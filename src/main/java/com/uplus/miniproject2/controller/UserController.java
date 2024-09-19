@@ -31,8 +31,8 @@ public class UserController {
             Pageable pageable
     ) {
 
-        Page<MainPageUserDto> searchResult = userService.searchUser(name, mbti, major, gender, pageable);
-
+//        Page<MainPageUserDto> searchResult = userService.searchUser(name, mbti, major, gender, pageable);
+        Page<MainPageUserDto> searchResult = userService.searchUserByMyBatis(name, mbti, major, gender, pageable);
         return ApiUtil.success(searchResult);
     }
 
