@@ -89,9 +89,9 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                 <button type="button" class="btn btn-primary" id="calculateDistance">거리 계산하기</button>
-            </div>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                </div>
         </div>
     </div>
 </div>
@@ -308,38 +308,59 @@
     });
 
     function getDirections(lat1, lon1, lat2, lon2) {
-        fetch(`/api/directions?lat1=${lat1}&lon1=${lon1}&lat2=${lat2}&lon2=${lon2}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('응답 오류: ' + response.status);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('경로 데이터:', data);
-                if (data.routes && data.routes.length > 0) {
-                    const route = data.routes[0];
-                    const distance = route.legs[0].distance.text;
-                    const duration = route.legs[0].duration.text;
+        const distance = calculateDistance(lat1, lon1, lat2, lon2); // 경로 데이터 계산 함수
+        const duration = estimateDuration(distance); // 예상 소요 시간 계산 함수
 
-                    document.getElementById('distanceResult').innerText = `거리: ${distance}, 소요 시간: ${duration}`;
-                } else {
-                    document.getElementById('distanceResult').innerText = '경로를 찾을 수 없습니다.';
-                }
-            })
-            .catch(error => {
-                console.error('경로 정보를 가져오는 중 오류 발생:', error);
-                document.getElementById('distanceResult').innerText = '경로 정보를 가져오는 중 오류가 발생했습니다.';
-            });
+        // 거리 출력 시 소수점 3자리까지 포맷팅
+        const formattedDistance = distance.toFixed(3) + ' KM';
+        document.getElementById('distanceResult').innerHTML = `
+        <strong>결과</strong><br>
+        <span>거리: <span style="color: #007bff;">${formattedDistance}</span></span><br>
+        <span>소요 시간: <span style="color: #007bff;">${duration}</span></span>
+    `;
+    }
+
+
+    // 거리 계산 함수 예시 (단위: km)
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+        const R = 6371; // 지구 반지름 (km)
+        const dLat = degreesToRadians(lat2 - lat1);
+        const dLon = degreesToRadians(lon2 - lon1);
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(degreesToRadians(lat1)) * Math.cos(degreesToRadians(lat2)) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c; // 거리 (km)
+    }
+
+    // 도 단위를 라디안으로 변환
+    function degreesToRadians(degrees) {
+        return degrees * (Math.PI / 180);
+    }
+
+    // 예상 소요 시간 계산 함수 예시 (속도: 60 km/h)
+    function estimateDuration(distance) {
+        const speed = 60; // km/h
+        const timeInHours = distance / speed;
+        const minutes = Math.round(timeInHours * 60);
+        return `${minutes} 분`;
     }
 
 
 
 
+
+    // 사용자 선택 체크박스 상태 관리
     function handleUserCheck(userId) {
-        // 체크박스 상태에 따라 추가 로직을 여기에 구현할 수 있습니다.
-        console.log(`User ${userId} 체크 상태 변경됨.`);
+        const checkboxes = document.querySelectorAll('#userSelectionContainer .form-check-input');
+        const checkedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+
+        if (checkedCount > 2) {
+            alert('최대 2명만 선택할 수 있습니다.');
+            document.getElementById(`userCheck${userId}`).checked = false; // 현재 체크박스 해제
+        }
     }
+
 
 </script>
 
