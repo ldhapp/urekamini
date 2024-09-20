@@ -37,7 +37,6 @@ public class MapServiceImpl implements MapService {
 
     @Override
     public Region findRegionByName(String name) {
-        return regionRepository.findByName(name)
-                .orElseThrow(() -> new RuntimeException("해당 지역을 찾을 수 없습니다: " + name));
+        return regionRepository.findByName(name);
     }
 }

@@ -27,8 +27,7 @@ public class MapController {
     // 지역 이름으로 지역 정보를 가져오는 메서드
     @GetMapping("/regions/{name}")
     public ApiSuccess<Region> findRegionByName(@PathVariable String name) {
-        Region region = regionRepository.findByName(name)
-                .orElseThrow(() -> new RuntimeException("지역을 찾을 수 없습니다: " + name));
+        Region region = regionRepository.findByName(name);
         return ApiUtil.success(region);
     }
 }
