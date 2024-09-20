@@ -28,7 +28,7 @@ public class Profile {
     @Enumerated(EnumType.STRING)
     private MBTI mbti;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "region_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer"}) // 지역 데이터 직렬화
     private Region region;
