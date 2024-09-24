@@ -94,49 +94,6 @@ public class ProfileService {
         );
     }
 
-    // 유저 Profile_Request 요청 조회
-//    public List<ProfilePageProfileRequestDto> getProfileRequests(Long adminId) {
-//        User admin = userRepository.findById(adminId);
-//        if (admin.getRole() != Role.ADMIN) {
-//            System.out.println();
-//            throw new IllegalStateException("접근 권한 없음");
-//        }
-//        List<ProfileRequest> profileRequests = profileRequestRepository.findAllByRequestStatus(RequestStatus.PENDING);
-//
-//        for (ProfileRequest request : profileRequests) {
-//            System.out.println(request);
-//        }
-//
-//        // DTO로 변환
-//        List<ProfilePageProfileRequestDto> profileRequestDTOs = profileRequests.stream()
-//                .map(request -> new ProfilePageProfileRequestDto(
-//                        request.getProfile().getMajor(),
-//                        request.getProfile().getMbti().name(),
-//                        request.getProfile().getRegion().getName(),
-//                        request.getProfile().getPlan(),
-//                        request.getProfile().getNiceExperience(),
-//                        request.getProfile().getImage(),
-//                        request.getProfile().getHobbies(),
-//                        request.getRequestType(),
-//                        request.getRequestStatus()
-//                ))
-//                .collect(Collectors.toList());
-//
-//        return profileRequestDTOs;
-//
-//    }
-
-    public List<String> parseJsonArray(String jsonArray) {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(jsonArray, new TypeReference<List<String>>() {
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Collections.emptyList();
-        }
-    }
-
     public Profile getProfileByUserId(Long userId) {
         return profileRepository.findByUserId(userId);
     }
@@ -149,16 +106,22 @@ public class ProfileService {
     }
 
     public ProfileExistDto getProfile(Long loginUserId) {
-        ProfileRequest pr = profileRequestRepository.findByUserId(loginUserId)
-                .orElseThrow(() -> new IllegalArgumentException());
+
         Profile loginUserProfile = profileRepository.findByUserId(loginUserId);
 
         ProfileExistDto profileExistDto = new ProfileExistDto();
 
-        if (loginUserProfile == null || pr.getRequestStatus().isNotApproved()) {
+        if (loginUserProfile == null) {
             profileExistDto.setExist(false);
         } else {
-            profileExistDto.setExist(true);
+            ProfileRequest pr = profileRequestRepository.findByUserId(loginUserId)
+                    .orElseThrow(() -> new IllegalArgumentException());
+
+            if (pr.getRequestStatus().isNotApproved()) {
+                profileExistDto.setExist(false);
+            } else {
+                profileExistDto.setExist(true);
+            }
         }
 
         return profileExistDto;
