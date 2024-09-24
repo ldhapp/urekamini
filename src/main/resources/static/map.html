@@ -68,28 +68,6 @@
     </div>
 </div>
 
-<!-- 거리계산 모달 창  -->
-<div class="modal fade" id="distanceModal" tabindex="-1" aria-labelledby="distanceModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="distanceModalLabel">거리 계산</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h6>사용자 선택 (최대 2명 선택 가능):</h6>
-                <div id="userSelectionContainer" style="max-height: 300px; overflow-y: auto;">
-                    <!-- 사용자 목록이 카드 형태로 삽입됩니다 -->
-                </div>
-                <div id="distanceResult" style="margin-top: 20px;">
-                    <!-- 거리 계산 결과가 여기에 표시됩니다 -->
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="calculateDistance">거리 계산하기</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-=======
 <!-- 프로필 등록/수정 모달 -->
 <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -204,6 +182,34 @@
         </div>
     </div>
 </div>
+
+<!-- 거리계산 모달 창  -->
+<div class="modal fade" id="distanceModal" tabindex="-1" aria-labelledby="distanceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="distanceModalLabel">거리 계산</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6>사용자 선택 (최대 2명 선택 가능):</h6>
+                <div id="userSelectionContainer" style="max-height: 300px; overflow-y: auto;">
+                    <!-- 사용자 목록이 카드 형태로 삽입됩니다 -->
+                </div>
+                <div id="distanceResult" style="margin-top: 20px;">
+                    <!-- 거리 계산 결과가 여기에 표시됩니다 -->
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="calculateDistance">거리 계산하기</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
 
 <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=b725e40e2b697b42e1aac0b02c8a06ee&libraries=clusterer"></script>
 <script>
@@ -331,139 +337,111 @@
             });
     }
 
-
     document.getElementById('calculateDistanceBtn').addEventListener('click', function() {
         new bootstrap.Modal(document.getElementById('distanceModal')).show();
     });
 
+    // 'calculateDistance' 버튼에 클릭 이벤트 리스너 추가
     document.getElementById('calculateDistance').addEventListener('click', function() {
+        // 체크된 사용자 체크박스에서 값을 가져와 배열로 변환
         const selectedUsers = Array.from(document.querySelectorAll('#userSelectionContainer .form-check-input:checked'))
             .map(checkbox => checkbox.value);
 
+
+        // 선택된 사용자 ID 콘솔에 출력
+        console.log('선택된 사용자 ID:', selectedUsers);
+
+        // 선택된 사용자의 수가 2가 아닌 경우 경고 메시지 출력
         if (selectedUsers.length !== 2) {
             alert('정확히 두 명의 사용자를 선택해야 합니다.');
-            return;
+            return; // 함수 종료
         }
 
         const [userId1, userId2] = selectedUsers;
 
-        // 사용자 정보를 가져오기 위한 API 요청
+        // 로컬 저장소에서 액세스 토큰 가져오기
+        const token = localStorage.getItem("accessToken");
+        if (!token) {
+            console.error("토큰이 없습니다."); // 토큰이 없을 경우 콘솔에 오류 출력
+            return; // 토큰이 없으면 함수 종료
+        }
+
+        // 사용자 1과 사용자 2의 좌표를 각각 가져와서 거리 계산
         Promise.all([
-            fetch(`/api/users/${userId1}`, { credentials: 'include' }),
-            fetch(`/api/users/${userId2}`, { credentials: 'include' })
+            fetchCoordinates(userId1, token),
+            fetchCoordinates(userId2, token)
         ])
-            .then(responses => {
-                if (!responses[0].ok || !responses[1].ok) {
-                    throw new Error('사용자 정보를 가져오는 데 실패했습니다.');
-                }
-                return Promise.all(responses.map(res => res.json()));
-            })
-            .then(data => {
-                const user1 = data[0].response;
-                const user2 = data[1].response;
+            .then(([coordinates1, coordinates2]) => {
+                const [lat1, lon1] = coordinates1.response; // 여기서 data 필드 사용
+                const [lat2, lon2] = coordinates2.response; // 여기서 data 필드 사용
+                console.log('지역 1의 좌표:', coordinates1.data);
+                console.log('지역 2의 좌표:', coordinates2.data);
 
-                // 사용자 1과 사용자 2의 지역 정보 가져오기
-                const regionName1 = encodeURIComponent(user1.region);
-                const regionName2 = encodeURIComponent(user2.region);
+                // 두 지점 사이의 거리 계산 (단위: km)
+                const distance = calculateDistance(lat1, lon1, lat2, lon2);
 
-                console.log(`Fetching region data for ${regionName1} and ${regionName2}`);
-                return Promise.all([
-                    fetch(`/api/map/regions/${regionName1}`),
-                    fetch(`/api/map/regions/${regionName2}`)
-                ]).then(responses => {
-                    console.log('Responses:', responses);
-                    if (!responses[0].ok || !responses[1].ok) {
-                        throw new Error('지역 정보를 가져오는 데 실패했습니다.');
-                    }
-                    return Promise.all(responses.map(res => res.json())).then(regionData => ({
-                        regionData,
-                        user1,
-                        user2
-                    }));
-                });
+                // 거리 출력 시 소수점 3자리까지 포맷팅
+                const formattedDistance = distance.toFixed(3) + ' KM';
+                const duration = estimateDuration(distance); // 예상 소요 시간 계산
 
-            })
-            .then(({ regionData, user1, user2 }) => {
-                const region1 = regionData[0].response;
-                const region2 = regionData[1].response;
+                document.getElementById('distanceResult').innerHTML = `
+                <strong>결과</strong><br>
+                <span>거리: <span style="color: #007bff;">${formattedDistance}</span></span><br>
+                <span>소요 시간: <span style="color: #007bff;">${duration}</span></span>
+                    `;
 
-                // 위도와 경도를 안전하게 가져오기
-                const lat1 = region1?.latitude;
-                const lon1 = region1?.longitude;
-                const lat2 = region2?.latitude;
-                const lon2 = region2?.longitude;
-
-                if (lat1 && lon1 && lat2 && lon2) {
-                    // 결과를 JSON으로 출력
-                    const result = {
-                        user1: {
-                            region: user1.region,
-                            latitude: lat1,
-                            longitude: lon1
-                        },
-                        user2: {
-                            region: user2.region,
-                            latitude: lat2,
-                            longitude: lon2
-                        }
-                    };
-                    console.log('사용자 정보:', JSON.stringify(result, null, 2));
-                    getDirections(lat1, lon1, lat2, lon2);
-                } else {
-                    console.error('위도 또는 경도가 정의되지 않았습니다.', { region1, region2 });
-                }
             })
             .catch(error => {
-                console.error('오류 발생:', error);
+                console.error('거리를 계산하는 도중 오류 발생:', error);
+                alert('거리를 계산하는 중 오류가 발생했습니다. 다시 시도해 주세요.');
             });
     });
 
-    function getDirections(lat1, lon1, lat2, lon2) {
-        const distance = calculateDistance(lat1, lon1, lat2, lon2); // 경로 데이터 계산 함수
-        const duration = estimateDuration(distance); // 예상 소요 시간 계산 함수
-
-        // 거리 출력 시 소수점 3자리까지 포맷팅
-        const formattedDistance = distance.toFixed(3) + ' KM';
-        document.getElementById('distanceResult').innerHTML = `
-        <strong>결과</strong><br>
-        <span>거리: <span style="color: #007bff;">${formattedDistance}</span></span><br>
-        <span>소요 시간: <span style="color: #007bff;">${duration}</span></span>
-    `;
+    function fetchCoordinates(userId, token) {
+        console.log('좌표 요청 중: 사용자 ID =', userId);
+        return fetch(`/api/map/coordinates/${userId}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                console.log('응답 상태:', response.status); // 응답 상태 코드 로그
+                return response.text() // 응답을 JSON으로 변환하기 전에 텍스트로 확인
+                    .then(text => {
+                        console.log('받은 응답:', text); // 응답 텍스트 로그
+                        return JSON.parse(text); // 텍스트를 JSON으로 파싱
+                    });
+            });
     }
 
-
-    // 거리 계산 함수 예시 (단위: km)
     function calculateDistance(lat1, lon1, lat2, lon2) {
-        const R = 6371; // 지구 반지름 (km)
-        const dLat = degreesToRadians(lat2 - lat1);
-        const dLon = degreesToRadians(lon2 - lon1);
+        const R = 6371; // 지구 반지름 (단위: km)
+        const dLat = toRadians(lat2 - lat1);
+        const dLon = toRadians(lon2 - lon1);
         const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.cos(degreesToRadians(lat1)) * Math.cos(degreesToRadians(lat2)) *
+            Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) *
             Math.sin(dLon / 2) * Math.sin(dLon / 2);
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        return R * c; // 거리 (km)
+        return R * c;
     }
 
-    // 도 단위를 라디안으로 변환
-    function degreesToRadians(degrees) {
-        return degrees * (Math.PI / 180);
+    function toRadians(degrees) {
+        return degrees * Math.PI / 180;
     }
 
     // 예상 소요 시간 계산 함수 예시 (속도: 60 km/h)
     function estimateDuration(distance) {
-        const speed = 60; // km/h
+        const speed = 24; // km/h
         const timeInHours = distance / speed;
         const minutes = Math.round(timeInHours * 60);
         return `${minutes} 분`;
     }
-
-
-
-
-
     // 사용자 선택 체크박스 상태 관리
     function handleUserCheck(userId) {
         const checkboxes = document.querySelectorAll('#userSelectionContainer .form-check-input');
+        console.log("체크박스 확인",checkboxes)
         const checkedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
 
         if (checkedCount > 2) {
@@ -471,7 +449,6 @@
             document.getElementById(`userCheck${userId}`).checked = false; // 현재 체크박스 해제
         }
     }
-
 
     // 세부 취미 리스트
     const hobbyDetails = {
@@ -640,6 +617,7 @@
         }
     });
 </script>
+
 
 
 
