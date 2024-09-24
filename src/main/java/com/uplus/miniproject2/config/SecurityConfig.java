@@ -46,6 +46,8 @@ public class SecurityConfig {
 
         // 경로별 인가 설정
         http.authorizeHttpRequests((auth) -> auth
+                .requestMatchers("/api/map/regions/**").hasAnyRole("USER", "ADMIN") // 이 줄을 추가
+                .requestMatchers("/api/map/profiles").permitAll() // 이 줄을 추가
                 .requestMatchers(
                         "/*.html",         // 모든 HTML 파일
                         "/",
@@ -81,6 +83,7 @@ public class SecurityConfig {
                     response.setStatus(HttpServletResponse.SC_OK);
                     response.setContentType("application/json");
                     response.getWriter().write("{\"message\": \"로그아웃 성공\"}");
+
                 })
                 .deleteCookies("Refresh-Token") // 쿠키 삭제
                 .invalidateHttpSession(false)); // 세션 무효화

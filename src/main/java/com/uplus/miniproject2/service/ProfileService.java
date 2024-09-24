@@ -106,6 +106,7 @@ public class ProfileService {
     }
 
     public ProfileExistDto getProfile(Long loginUserId) {
+
         Profile loginUserProfile = profileRepository.findByUserId(loginUserId);
 
         ProfileExistDto profileExistDto = new ProfileExistDto();
@@ -113,7 +114,14 @@ public class ProfileService {
         if (loginUserProfile == null) {
             profileExistDto.setExist(false);
         } else {
-            profileExistDto.setExist(true);
+            ProfileRequest pr = profileRequestRepository.findByUserId(loginUserId)
+                    .orElseThrow(() -> new IllegalArgumentException());
+
+            if (pr.getRequestStatus().isNotApproved()) {
+                profileExistDto.setExist(false);
+            } else {
+                profileExistDto.setExist(true);
+            }
         }
 
         return profileExistDto;

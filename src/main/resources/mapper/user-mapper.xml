@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.uplus.miniproject2.mapper.UserMapper">
+
+    <select id="findBySearchCondition" resultType="com.uplus.miniproject2.dto.MainPageUserDto">
+        SELECT
+        u.name AS name,
+        u.id AS userId,
+        p.major AS major,
+        p.mbti AS mbti,
+        r.name AS regionName,
+        p.image AS profileImage
+        FROM user u
+        JOIN profile p ON u.id = p.user_id
+        JOIN profile_request pr ON p.id = pr.profile_id
+        JOIN region r ON p.region_id = r.id
+        WHERE 1=1
+        <if test="name != null and name != ''">
+            AND u.name LIKE CONCAT('%', #{name}, '%')
+        </if>
+        <if test="mbti != null and mbti != ''">
+            AND p.mbti = #{mbti}
+        </if>
+        <if test="major != null and major != ''">
+            AND p.major LIKE CONCAT('%', #{major}, '%')
+        </if>
+        <if test="gender != null and gender != ''">
+            AND u.gender = #{gender}
+        </if>
+        AND (pr.request_status IS NULL OR (pr.request_status != 'PENDING' AND pr.request_status != 'REJECTED'))
+        ORDER BY u.id ASC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="countBySearchCondition" resultType="long">
+        SELECT COUNT(*)
+        FROM user u
+        JOIN profile p ON u.id = p.user_id
+        LEFT JOIN profile_request pr ON p.id = pr.profile_id
+        WHERE 1=1
+        <if test="name != null and name != ''">
+            AND u.name LIKE CONCAT('%', #{name}, '%')
+        </if>
+        <if test="mbti != null and mbti != ''">
+            AND p.mbti = #{mbti}
+        </if>
+        <if test="major != null and major != ''">
+            AND p.major LIKE CONCAT('%', #{major}, '%')
+        </if>
+        <if test="gender != null and gender != ''">
+            AND u.gender = #{gender}
+        </if>
+        AND (pr.request_status IS NULL OR (pr.request_status != 'PENDING' AND pr.request_status != 'REJECTED'))
+    </select>
+
+</mapper>

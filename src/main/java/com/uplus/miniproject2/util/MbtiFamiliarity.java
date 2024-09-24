@@ -130,6 +130,15 @@ public class MbtiFamiliarity {
         esfpMap.put(MBTI.ISTP, 85); esfpMap.put(MBTI.ISFP, 97); esfpMap.put(MBTI.ESTJ, 90);
         esfpMap.put(MBTI.ESFJ, 90); esfpMap.put(MBTI.ESFP, 97); esfpMap.put(MBTI.ESTP, 90);
         familiarityMap.put(MBTI.ESFP, esfpMap);
+
+        EnumMap<MBTI, Integer> entpMap = new EnumMap<>(MBTI.class);
+        entpMap.put(MBTI.INFJ, 95); entpMap.put(MBTI.INTJ, 100); entpMap.put(MBTI.INTP, 100);
+        entpMap.put(MBTI.INFP, 90); entpMap.put(MBTI.ENFJ, 90); entpMap.put(MBTI.ENFP, 97);
+        entpMap.put(MBTI.ENTP, 85); entpMap.put(MBTI.ISFJ, 97); entpMap.put(MBTI.ISTJ, 60);
+        entpMap.put(MBTI.ISTP, 60); entpMap.put(MBTI.ISFP, 80); entpMap.put(MBTI.ESTJ, 55);
+        entpMap.put(MBTI.ESFJ, 55); entpMap.put(MBTI.ESFP, 75); entpMap.put(MBTI.ESTP, 75);
+
+        familiarityMap.put(MBTI.ENTP, entpMap);
     }
 
     public static int getFamiliarityScore(MBTI mbti1, MBTI mbti2) {

@@ -12,4 +12,12 @@ public enum RequestStatus {
     public String getName() {
         return name;
     }
+
+    public boolean isNotApproved() {
+        if (this == PENDING || this == REJECTED) {
+            return true;
+        }
+
+        return false;
+    }
 }
