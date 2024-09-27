@@ -140,7 +140,7 @@
     let isUsernameAvailable = false; // 사용자명 사용 가능 여부
     let isPasswordAvailable = false; // 비밀번호 일치 여부
 
-    window.onload = function() {
+    window.onload = function () {
         document.querySelector("#btnCheckUsername").onclick = checkUsername;
         document.querySelector("#username").addEventListener("input", resetUsernameCheck); // 사용자명 변경 시 확인 초기화
         document.querySelector("#password2").addEventListener("input", checkPasswordMatch);

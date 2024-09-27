@@ -150,7 +150,8 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-4">
-                            <img id="modalProfileImage" src="" class="img-fluid rounded" alt="프로필 이미지" style="width: 100%; height: auto;">
+                            <img id="modalProfileImage" src="" class="img-fluid rounded" alt="프로필 이미지"
+                                 style="width: 100%; height: auto;">
                         </div>
                         <div class="col-md-8">
                             <h5 id="modalUserName"></h5>
@@ -189,9 +190,11 @@
                         <!-- 프로필 이미지 -->
                         <div class="col-md-4 mb-3">
                             <label for="profileImage" class="form-label">프로필 이미지</label>
-                            <input type="file" class="form-control" id="profileImage" accept="image/png, image/jpeg, image/jpg, image/gif">
+                            <input type="file" class="form-control" id="profileImage"
+                                   accept="image/png, image/jpeg, image/jpg, image/gif">
                             <div class="text-center">
-                                <img id="profilePreview" src="/img/img.png" class="img-fluid rounded mt-2" alt="프로필 이미지 미리보기" style="width: 300px; height: 300px; object-fit: cover;">
+                                <img id="profilePreview" src="/img/img.png" class="img-fluid rounded mt-2"
+                                     alt="프로필 이미지 미리보기" style="width: 300px; height: 300px; object-fit: cover;">
                             </div>
                         </div>
 
@@ -245,28 +248,45 @@
                             </div>
                             <div class="mb-3">
                                 <label for="major" class="form-label">전공</label>
-                                <input type="text" class="form-control" id="profile_major" placeholder="전공을 입력하세요" required>
+                                <input type="text" class="form-control" id="profile_major" placeholder="전공을 입력하세요"
+                                       required>
                             </div>
                             <div class="mb-3">
                                 <label for="niceExperience" class="form-label">좋았던 경험</label>
-                                <textarea class="form-control" id="niceExperience" placeholder="좋았던 경험을 입력하세요" rows="3" required></textarea>
+                                <textarea class="form-control" id="niceExperience" placeholder="좋았던 경험을 입력하세요" rows="3"
+                                          required></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="plan" class="form-label">앞으로의 계획</label>
-                                <textarea class="form-control" id="plan" placeholder="계획을 입력하세요" rows="3" required></textarea>
+                                <textarea class="form-control" id="plan" placeholder="계획을 입력하세요" rows="3"
+                                          required></textarea>
                             </div>
 
                             <!-- 취미 선택 (버튼으로 변경) -->
                             <div class="mb-3">
                                 <label class="form-label">취미 <span class="text-danger">*</span></label>
                                 <div class="d-flex flex-wrap" id="hobbyButtons">
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="CULTURAL_LIFE">문화생활</button>
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="EXERCISE">운동</button>
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="FOOD">음식</button>
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="GAME">게임</button>
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="MUSIC">음악</button>
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="TRAVEL">여행</button>
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="ETC">기타</button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="CULTURAL_LIFE">문화생활
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="EXERCISE">운동
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="FOOD">음식
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="GAME">게임
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="MUSIC">음악
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="TRAVEL">여행
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="ETC">기타
+                                    </button>
                                 </div>
                             </div>
 
@@ -275,7 +295,9 @@
                             <div class="mb-3" id="subHobbiesContainer" style="display: none;">
                                 <label class="form-label">세부 취미</label>
                                 <div class="d-flex flex-wrap" id="subHobbies"></div>
-                                <div class="invalid-feedback" id="subHobbyError" style="display: none;">하나 이상의 세부 취미를 선택하세요.</div>
+                                <div class="invalid-feedback" id="subHobbyError" style="display: none;">하나 이상의 세부 취미를
+                                    선택하세요.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -440,13 +462,13 @@
     }
 
     // 이미지 파일 선택 시 미리보기 업데이트
-    document.getElementById('profileImage').addEventListener('change', function(event) {
+    document.getElementById('profileImage').addEventListener('change', function (event) {
         const file = event.target.files[0];
         const preview = document.getElementById('profilePreview');
 
         if (file && file.type.match('image.*')) {
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 preview.src = e.target.result;
             };
             reader.readAsDataURL(file);
@@ -454,7 +476,6 @@
             preview.src = 'img.png';  // 기본 이미지로 초기화
         }
     });
-
 
 
     // 페이지 로드 시 유저 데이터 가져오기
@@ -508,71 +529,71 @@
     }
 
     function openUserModal(userId) {
-    fetch(`/api/users/${userId}`)
-        .then(response => response.json())
-        .then(data => {
-            const user = data.response;
+        fetch(`/api/users/${userId}`)
+            .then(response => response.json())
+            .then(data => {
+                const user = data.response;
 
-            // 프로필 이미지, 이름, 성별 등 모달에 정보 채우기
-            document.getElementById('modalProfileImage').src = `data:image/png;base64,${user.profileImage}`;
-            document.getElementById('modalUserName').innerText = user.name;
-            const gender = user.gender === 'male' ? '남성' : '여성';
-            document.getElementById('modalUserGender').innerText = gender;
-            document.getElementById('modalUserMbti').innerText = user.mbti;
-            document.getElementById('modalUserRegion').innerText = user.region;
-            document.getElementById('modalUserMajor').innerText = user.major;
+                // 프로필 이미지, 이름, 성별 등 모달에 정보 채우기
+                document.getElementById('modalProfileImage').src = `data:image/png;base64,${user.profileImage}`;
+                document.getElementById('modalUserName').innerText = user.name;
+                const gender = user.gender === 'male' ? '남성' : '여성';
+                document.getElementById('modalUserGender').innerText = gender;
+                document.getElementById('modalUserMbti').innerText = user.mbti;
+                document.getElementById('modalUserRegion').innerText = user.region;
+                document.getElementById('modalUserMajor').innerText = user.major;
 
-            // 취미 목록을 모달에 채우기
-            const hobbiesList = document.getElementById('modalUserHobbies');
-            hobbiesList.innerHTML = '';  // 기존 취미 초기화
-            user.hobbies.forEach(hobby => {
-                hobbiesList.innerHTML += `<span class="badge bg-pink text-white me-2" style="font-size: 1.025rem; padding: 10px 15px;">${hobby.name}</span>`;
+                // 취미 목록을 모달에 채우기
+                const hobbiesList = document.getElementById('modalUserHobbies');
+                hobbiesList.innerHTML = '';  // 기존 취미 초기화
+                user.hobbies.forEach(hobby => {
+                    hobbiesList.innerHTML += `<span class="badge bg-pink text-white me-2" style="font-size: 1.025rem; padding: 10px 15px;">${hobby.name}</span>`;
+                });
+
+                document.getElementById('modalUserExperience').innerText = user.niceExperience;
+                document.getElementById('modalUserPlan').innerText = user.plan;
+
+                // 모달을 띄우기 전에 Bootstrap Modal 객체 생성 및 표시
+                const userModal = new bootstrap.Modal(document.getElementById('userModal'));
+                userModal.show();
+
+                // 친밀도 버튼에 유저 ID 추가 및 이벤트 리스너 등록
+                const familiarityBtn = document.getElementById('familiarityBtn');
+                familiarityBtn.href = `/familiarity.html?userId=${userId}`;
+
+                familiarityBtn.removeEventListener('click', handleFamiliarityClick); // 기존 리스너 제거
+                familiarityBtn.addEventListener('click', handleFamiliarityClick);
+            })
+            .catch(error => {
+                console.error('Error fetching user data:', error);
             });
+    }
 
-            document.getElementById('modalUserExperience').innerText = user.niceExperience;
-            document.getElementById('modalUserPlan').innerText = user.plan;
+    // 친밀도 버튼 클릭 시 권한 및 프로필 유무 확인
+    function handleFamiliarityClick(event) {
+        event.preventDefault(); // 기본 동작 중단
 
-            // 모달을 띄우기 전에 Bootstrap Modal 객체 생성 및 표시
-            const userModal = new bootstrap.Modal(document.getElementById('userModal'));
-            userModal.show();
+        const familiarityUrl = event.currentTarget.getAttribute('href');
 
-            // 친밀도 버튼에 유저 ID 추가 및 이벤트 리스너 등록
-            const familiarityBtn = document.getElementById('familiarityBtn');
-            familiarityBtn.href = `/familiarity.html?userId=${userId}`;
-
-            familiarityBtn.removeEventListener('click', handleFamiliarityClick); // 기존 리스너 제거
-            familiarityBtn.addEventListener('click', handleFamiliarityClick);
-        })
-        .catch(error => {
-            console.error('Error fetching user data:', error);
+        const url = '/api/profiles/check';
+        const method = 'GET';
+        const headers = new Headers({
+            'Content-Type': 'application/json'
         });
-}
 
-// 친밀도 버튼 클릭 시 권한 및 프로필 유무 확인
-function handleFamiliarityClick(event) {
-    event.preventDefault(); // 기본 동작 중단
-
-    const familiarityUrl = event.currentTarget.getAttribute('href');
-
-    const url = '/api/profiles/check';
-    const method = 'GET';
-    const headers = new Headers({
-        'Content-Type': 'application/json'
-    });
-
-    sendRequestWithToken(url, method, headers, null)
-        .then(response => response.json())
-        .then(data => {
-        if (data.response.exist) {
-            window.location.href = familiarityUrl;
-        } else {
-            alert('프로필 등록이 필요합니다.');
-        }
-    })
-    .catch(error => {
-        console.error('Error checking profile:', error);
-    });
-}
+        sendRequestWithToken(url, method, headers, null)
+            .then(response => response.json())
+            .then(data => {
+                if (data.response.exist) {
+                    window.location.href = familiarityUrl;
+                } else {
+                    alert('프로필 등록이 필요합니다.');
+                }
+            })
+            .catch(error => {
+                console.error('Error checking profile:', error);
+            });
+    }
 
 
     function renderPagination(pageData) {

@@ -13,20 +13,24 @@
         .card {
             height: 100%;
         }
+
         .card-body {
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 2rem;
         }
+
         .progress-bar {
             text-align: center;
             color: white;
             font-size: 1.25rem;
         }
+
         .progress {
             height: 2rem;
         }
+
         .card-header h6 {
             font-size: 1.5rem;
         }
@@ -89,8 +93,12 @@
                 </div>
                 <div class="card-body">
                     <div class="progress mb-4">
-                        <div id="male-progress-bar" class="progress-bar bg-primary" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">남성 50%</div>
-                        <div id="female-progress-bar" class="progress-bar bg-danger" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">여성 50%</div>
+                        <div id="male-progress-bar" class="progress-bar bg-primary" role="progressbar"
+                             style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">남성 50%
+                        </div>
+                        <div id="female-progress-bar" class="progress-bar bg-danger" role="progressbar"
+                             style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">여성 50%
+                        </div>
                     </div>
                 </div>
             </div>
@@ -128,9 +136,11 @@
                         <!-- 프로필 이미지 -->
                         <div class="col-md-4 mb-3">
                             <label for="profileImage" class="form-label">프로필 이미지</label>
-                            <input type="file" class="form-control" id="profileImage" accept="image/png, image/jpeg, image/jpg, image/gif">
+                            <input type="file" class="form-control" id="profileImage"
+                                   accept="image/png, image/jpeg, image/jpg, image/gif">
                             <div class="text-center">
-                                <img id="profilePreview" src="/img/img.png" class="img-fluid rounded mt-2" alt="프로필 이미지 미리보기" style="width: 300px; height: 300px; object-fit: cover;">
+                                <img id="profilePreview" src="/img/img.png" class="img-fluid rounded mt-2"
+                                     alt="프로필 이미지 미리보기" style="width: 300px; height: 300px; object-fit: cover;">
                             </div>
                         </div>
 
@@ -184,28 +194,45 @@
                             </div>
                             <div class="mb-3">
                                 <label for="major" class="form-label">전공</label>
-                                <input type="text" class="form-control" id="profile_major" placeholder="전공을 입력하세요" required>
+                                <input type="text" class="form-control" id="profile_major" placeholder="전공을 입력하세요"
+                                       required>
                             </div>
                             <div class="mb-3">
                                 <label for="niceExperience" class="form-label">좋았던 경험</label>
-                                <textarea class="form-control" id="niceExperience" placeholder="좋았던 경험을 입력하세요" rows="3" required></textarea>
+                                <textarea class="form-control" id="niceExperience" placeholder="좋았던 경험을 입력하세요" rows="3"
+                                          required></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="plan" class="form-label">앞으로의 계획</label>
-                                <textarea class="form-control" id="plan" placeholder="계획을 입력하세요" rows="3" required></textarea>
+                                <textarea class="form-control" id="plan" placeholder="계획을 입력하세요" rows="3"
+                                          required></textarea>
                             </div>
 
                             <!-- 취미 선택 (버튼으로 변경) -->
                             <div class="mb-3">
                                 <label class="form-label">취미 <span class="text-danger">*</span></label>
                                 <div class="d-flex flex-wrap" id="hobbyButtons">
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="CULTURAL_LIFE">문화생활</button>
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="EXERCISE">운동</button>
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="FOOD">음식</button>
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="GAME">게임</button>
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="MUSIC">음악</button>
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="TRAVEL">여행</button>
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="ETC">기타</button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="CULTURAL_LIFE">문화생활
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="EXERCISE">운동
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="FOOD">음식
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="GAME">게임
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="MUSIC">음악
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="TRAVEL">여행
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="ETC">기타
+                                    </button>
                                 </div>
                             </div>
 
@@ -214,7 +241,9 @@
                             <div class="mb-3" id="subHobbiesContainer" style="display: none;">
                                 <label class="form-label">세부 취미</label>
                                 <div class="d-flex flex-wrap" id="subHobbies"></div>
-                                <div class="invalid-feedback" id="subHobbyError" style="display: none;">하나 이상의 세부 취미를 선택하세요.</div>
+                                <div class="invalid-feedback" id="subHobbyError" style="display: none;">하나 이상의 세부 취미를
+                                    선택하세요.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -234,18 +263,18 @@
 <script src="/js/navbar.js"></script>
 <script>
     const token = localStorage.getItem("accessToken");
-        if (!token) {
-            console.error("토큰이 없습니다.");
-        }
+    if (!token) {
+        console.error("토큰이 없습니다.");
+    }
 
     // MBTI 데이터로 차트 생성
     fetch('/api/statistics/mbti', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': 'Bearer ' + token,
-                        'Content-Type': 'application/json'
-                    }
-         })
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        }
+    })
         .then(response => response.json())
         .then(data => {
             console.log('MBTI 데이터:', data);
@@ -274,7 +303,7 @@
                         },
                         tooltip: {
                             callbacks: {
-                                label: function(tooltipItem) {
+                                label: function (tooltipItem) {
                                     return tooltipItem.label + ': ' + tooltipItem.raw;
                                 }
                             }
@@ -286,13 +315,13 @@
         .catch(error => console.error('MBTI 데이터 가져오기 오류:', error));
 
     // 남녀 비율 데이터로 프로그레스 바 업데이트
-    fetch('/api/statistics/gender' , {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': 'Bearer ' + token,
-                        'Content-Type': 'application/json'
-                    }
-})
+    fetch('/api/statistics/gender', {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        }
+    })
         .then(response => response.json())
         .then(data => {
             console.log('남녀 비율 데이터:', data);
@@ -312,12 +341,12 @@
 
     // 전공 카드 데이터로 바 차트 생성
     fetch('/api/statistics/major', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': 'Bearer ' + token,
-                        'Content-Type': 'application/json'
-                    }
-})
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        }
+    })
         .then(response => response.json())
         .then(data => {
             console.log('전공 데이터:', data);
@@ -348,7 +377,7 @@
                         y: {
                             beginAtZero: true,
                             ticks: {
-                                callback: function(value) {
+                                callback: function (value) {
                                     return value; // Y축 레이블 표시
                                 }
                             }
@@ -360,7 +389,7 @@
                         },
                         tooltip: {
                             callbacks: {
-                                label: function(tooltipItem) {
+                                label: function (tooltipItem) {
                                     return `${tooltipItem.label}: ${tooltipItem.raw}명`; // 툴팁 레이블
                                 }
                             }
@@ -373,12 +402,12 @@
 
     // 사는 지역 데이터로 파이 차트 생성
     fetch('/api/statistics/region', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': 'Bearer ' + token,
-                        'Content-Type': 'application/json'
-                    }
-})
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        }
+    })
         .then(response => response.json())
         .then(data => {
             console.log('사는 지역 데이터:', data);
@@ -413,12 +442,12 @@
 
     // 취미 데이터로 프로그레스 바 업데이트
     fetch('/api/statistics/hobbies', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': 'Bearer ' + token,
-                        'Content-Type': 'application/json'
-                    }
-})
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json'
+        }
+    })
         .then(response => response.json())
         .then(data => {
             console.log('취미 데이터:', data); // 데이터 확인용 콘솔 로그
@@ -442,7 +471,6 @@
             });
         })
         .catch(error => console.error('취미 데이터 가져오기 오류:', error));
-
 
 
     // 세부 취미 리스트
@@ -589,13 +617,13 @@
     }
 
     // 이미지 파일 선택 시 미리보기 업데이트
-    document.getElementById('profileImage').addEventListener('change', function(event) {
+    document.getElementById('profileImage').addEventListener('change', function (event) {
         const file = event.target.files[0];
         const preview = document.getElementById('profilePreview');
 
         if (file && file.type.match('image.*')) {
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 preview.src = e.target.result;
             };
             reader.readAsDataURL(file);

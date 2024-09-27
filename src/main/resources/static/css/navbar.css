@@ -47,18 +47,22 @@
     color: white;
     border-color: #e60073;
 }
+
 body {
     font-family: 'Arial', sans-serif;
     background-color: #f8f9fa;
     margin: 0;
     padding: 0;
 }
+
 .navbar {
     background-color: #343a40;
 }
+
 .navbar-brand {
     color: #fff;
 }
+
 .container {
     margin-top: 20px;
     margin-bottom: 20px;

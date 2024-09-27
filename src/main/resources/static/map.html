@@ -25,7 +25,8 @@
         <div class="map-container" id="map"></div>
         <div class="user-list" id="user-list">
             <div class="text-center mb-3">
-                <button id="calculateDistanceBtn" class="btn btn-outline-primary" style="border-radius: 20px; font-size: 1.1rem; padding: 10px 20px; transition: background-color 0.3s;">
+                <button id="calculateDistanceBtn" class="btn btn-outline-primary"
+                        style="border-radius: 20px; font-size: 1.1rem; padding: 10px 20px; transition: background-color 0.3s;">
                     거리 계산하기
                 </button>
             </div>
@@ -44,7 +45,8 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-4">
-                        <img id="modalProfileImage" src="" class="img-fluid rounded" alt="프로필 이미지" style="width: 100%; height: auto;">
+                        <img id="modalProfileImage" src="" class="img-fluid rounded" alt="프로필 이미지"
+                             style="width: 100%; height: auto;">
                     </div>
                     <div class="col-md-8">
                         <h5 id="modalUserName"></h5>
@@ -82,9 +84,11 @@
                         <!-- 프로필 이미지 -->
                         <div class="col-md-4 mb-3">
                             <label for="profileImage" class="form-label">프로필 이미지</label>
-                            <input type="file" class="form-control" id="profileImage" accept="image/png, image/jpeg, image/jpg, image/gif">
+                            <input type="file" class="form-control" id="profileImage"
+                                   accept="image/png, image/jpeg, image/jpg, image/gif">
                             <div class="text-center">
-                                <img id="profilePreview" src="/img/img.png" class="img-fluid rounded mt-2" alt="프로필 이미지 미리보기" style="width: 300px; height: 300px; object-fit: cover;">
+                                <img id="profilePreview" src="/img/img.png" class="img-fluid rounded mt-2"
+                                     alt="프로필 이미지 미리보기" style="width: 300px; height: 300px; object-fit: cover;">
                             </div>
                         </div>
 
@@ -138,28 +142,45 @@
                             </div>
                             <div class="mb-3">
                                 <label for="major" class="form-label">전공</label>
-                                <input type="text" class="form-control" id="profile_major" placeholder="전공을 입력하세요" required>
+                                <input type="text" class="form-control" id="profile_major" placeholder="전공을 입력하세요"
+                                       required>
                             </div>
                             <div class="mb-3">
                                 <label for="niceExperience" class="form-label">좋았던 경험</label>
-                                <textarea class="form-control" id="niceExperience" placeholder="좋았던 경험을 입력하세요" rows="3" required></textarea>
+                                <textarea class="form-control" id="niceExperience" placeholder="좋았던 경험을 입력하세요" rows="3"
+                                          required></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="plan" class="form-label">앞으로의 계획</label>
-                                <textarea class="form-control" id="plan" placeholder="계획을 입력하세요" rows="3" required></textarea>
+                                <textarea class="form-control" id="plan" placeholder="계획을 입력하세요" rows="3"
+                                          required></textarea>
                             </div>
 
                             <!-- 취미 선택 (버튼으로 변경) -->
                             <div class="mb-3">
                                 <label class="form-label">취미 <span class="text-danger">*</span></label>
                                 <div class="d-flex flex-wrap" id="hobbyButtons">
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="CULTURAL_LIFE">문화생활</button>
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="EXERCISE">운동</button>
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="FOOD">음식</button>
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="GAME">게임</button>
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="MUSIC">음악</button>
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="TRAVEL">여행</button>
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="ETC">기타</button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="CULTURAL_LIFE">문화생활
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="EXERCISE">운동
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="FOOD">음식
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="GAME">게임
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="MUSIC">음악
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="TRAVEL">여행
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="ETC">기타
+                                    </button>
                                 </div>
                             </div>
 
@@ -168,7 +189,9 @@
                             <div class="mb-3" id="subHobbiesContainer" style="display: none;">
                                 <label class="form-label">세부 취미</label>
                                 <div class="d-flex flex-wrap" id="subHobbies"></div>
-                                <div class="invalid-feedback" id="subHobbyError" style="display: none;">하나 이상의 세부 취미를 선택하세요.</div>
+                                <div class="invalid-feedback" id="subHobbyError" style="display: none;">하나 이상의 세부 취미를
+                                    선택하세요.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -261,7 +284,7 @@
                 infowindows[profile.userId] = infowindow;
 
                 // 마커 클릭 이벤트
-                kakao.maps.event.addListener(marker, 'click', function() {
+                kakao.maps.event.addListener(marker, 'click', function () {
                     infowindow.getMap() ? infowindow.close() : infowindow.open(map, marker);
                 });
 
@@ -276,7 +299,7 @@
         });
 
         // 사용자 리스트 클릭 이벤트
-        userListContainer.addEventListener('click', function(event) {
+        userListContainer.addEventListener('click', function (event) {
             if (event.target.tagName === 'A') {
                 var userId = event.target.getAttribute('data-user-id');
                 var marker = markers[userId];
@@ -337,12 +360,12 @@
             });
     }
 
-    document.getElementById('calculateDistanceBtn').addEventListener('click', function() {
+    document.getElementById('calculateDistanceBtn').addEventListener('click', function () {
         new bootstrap.Modal(document.getElementById('distanceModal')).show();
     });
 
     // 'calculateDistance' 버튼에 클릭 이벤트 리스너 추가
-    document.getElementById('calculateDistance').addEventListener('click', function() {
+    document.getElementById('calculateDistance').addEventListener('click', function () {
         // 체크된 사용자 체크박스에서 값을 가져와 배열로 변환
         const selectedUsers = Array.from(document.querySelectorAll('#userSelectionContainer .form-check-input:checked'))
             .map(checkbox => checkbox.value);
@@ -433,15 +456,16 @@
 
     // 예상 소요 시간 계산 함수 예시 (속도: 60 km/h)
     function estimateDuration(distance) {
-        const speed = 24; // km/h
+        const speed = 33; // km/h
         const timeInHours = distance / speed;
         const minutes = Math.round(timeInHours * 60);
         return `${minutes} 분`;
     }
+
     // 사용자 선택 체크박스 상태 관리
     function handleUserCheck(userId) {
         const checkboxes = document.querySelectorAll('#userSelectionContainer .form-check-input');
-        console.log("체크박스 확인",checkboxes)
+        console.log("체크박스 확인", checkboxes)
         const checkedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
 
         if (checkedCount > 2) {
@@ -594,13 +618,13 @@
     }
 
     // 이미지 파일 선택 시 미리보기 업데이트
-    document.getElementById('profileImage').addEventListener('change', function(event) {
+    document.getElementById('profileImage').addEventListener('change', function (event) {
         const file = event.target.files[0];
         const preview = document.getElementById('profilePreview');
 
         if (file && file.type.match('image.*')) {
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 preview.src = e.target.result;
             };
             reader.readAsDataURL(file);
@@ -619,12 +643,8 @@
 </script>
 
 
-
-
-
-
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script type="module" src="/js/auth.js"></script>
-<script src="/js/navbar.js"></script></body>
+<script src="/js/navbar.js"></script>
+</body>
 </html>

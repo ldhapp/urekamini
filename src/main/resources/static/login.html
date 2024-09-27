@@ -103,7 +103,8 @@
 </head>
 <body>
 <div class="login-container" id="container">
-    <img src="https://pbs.twimg.com/profile_images/1443536012/__1_400x400.png" alt="Home" class="login-logo" onclick="window.location.href='/'" />
+    <img src="https://pbs.twimg.com/profile_images/1443536012/__1_400x400.png" alt="Home" class="login-logo"
+         onclick="window.location.href='/'"/>
 
     <form class="login-form" id="loginForm">
         <h1>로그인</h1>
@@ -121,12 +122,12 @@
 </div>
 
 <script type="module">
-    window.onload = function() {
+    window.onload = function () {
         // 로그인 버튼 클릭 시 login 함수 호출
         document.querySelector("#btnLogin").onclick = login;
 
         // 페이지 전체에서 Enter 키를 감지
-        document.addEventListener("keydown", function(event) {
+        document.addEventListener("keydown", function (event) {
             if (event.key === "Enter") {
                 event.preventDefault();  // 기본 Enter 동작을 막음
                 login();  // 로그인 함수 호출

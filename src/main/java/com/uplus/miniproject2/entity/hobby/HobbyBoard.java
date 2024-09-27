@@ -23,7 +23,10 @@ public class HobbyBoard {
     private User user;
 
     private String title;
+
+    @Column(columnDefinition = "TEXT")
     private String description;
+
     private String videoLink;
 
     @Enumerated(EnumType.STRING)

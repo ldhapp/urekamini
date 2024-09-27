@@ -121,7 +121,8 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-4">
-                        <img id="modalProfileImage" src="" class="img-fluid rounded" alt="프로필 이미지" style="width: 100%; height: auto;">
+                        <img id="modalProfileImage" src="" class="img-fluid rounded" alt="프로필 이미지"
+                             style="width: 100%; height: auto;">
                     </div>
                     <div class="col-md-8">
                         <h5 id="modalUserName"></h5>
@@ -245,7 +246,7 @@
         try {
             const response = await sendRequestWithToken(`http://localhost:8080/api/profiles/${requestId}`, 'PUT', {
                 'Content-Type': 'application/json',
-            }, JSON.stringify({ requestStatus: status }));
+            }, JSON.stringify({requestStatus: status}));
 
             if (response.ok) {
                 alert(`요청이 ${status}로 업데이트되었습니다.`);
@@ -278,23 +279,24 @@
         fetchRequests();
     });
 
-    function toTranslateRequestType(type){
-        if (type === 'REGISTER'){
+    function toTranslateRequestType(type) {
+        if (type === 'REGISTER') {
             return '등록'
-        }else if (type === 'UPDATE'){
+        } else if (type === 'UPDATE') {
             return '수정'
         }
     }
 
-    function toTranslateRequestStatus(status){
-        if (status === "PENDING"){
+    function toTranslateRequestStatus(status) {
+        if (status === "PENDING") {
             return '승인 대기중'
-        }else if (status === 'APPROVED'){
+        } else if (status === 'APPROVED') {
             return '승인'
-        }else if(status === 'REJECTED'){
+        } else if (status === 'REJECTED') {
             return '거부'
         }
     }
+
     window.onload = fetchRequests; // 페이지 로드 시 요청 가져오기
 </script>
 </body>

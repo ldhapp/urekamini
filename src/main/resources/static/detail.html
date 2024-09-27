@@ -1,274 +1,307 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>유레카 정보 관리</title>
-  <link rel="stylesheet" href="/css/navbar.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-  <style>
-    .btn-custom {
-      background-color: #ff007f;
-      color: white;
-      height: 45px;
-      padding: 0 15px;
-      border: none;
-    }
-    .post-detail {
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 20px;
-      margin-top: 20px;
-      background-color: #fff;
-    }
-    .post-detail h1 {
-      font-size: 2rem;
-      margin-bottom: 15px;
-    }
-    .post-detail p {
-      font-size: 1rem;
-      color: #666;
-    }
-    .post-detail .btn-link {
-      font-size: 1rem;
-      color: #007bff;
-      text-decoration: none;
-      display: inline-block;
-      margin-top: 10px;
-      padding: 8px 15px;
-      border-radius: 5px;
-      border: 1px solid #007bff;
-      background-color: #f8f9fa;
-      transition: background-color 0.3s, color 0.3s;
-    }
-    .post-detail .btn-link:hover {
-      background-color: #007bff;
-      color: white;
-      text-decoration: none;
-    }
-    .link-url {
-      margin-top: 10px;
-      font-size: 0.9rem;
-      color: #007bff;
-      word-wrap: break-word;
-    }
-    .badge {
-      background-color: #ff007f;
-      color: white;
-      padding: 5px 10px;
-      border-radius: 12px;
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
-    .btn-thumbs-up {
-      background-color: #ffc107;
-      color: white;
-      font-size: 1.2rem;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 25px;
-      margin-top: 20px;
-      transition: background-color 0.3s, transform 0.3s;
-    }
-    .btn-thumbs-up:hover {
-      background-color: #e0a800;
-      transform: scale(1.05);
-    }
-    .action-buttons {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>유레카 정보 관리</title>
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <style>
+        .btn-custom {
+            background-color: #ff007f;
+            color: white;
+            height: 45px;
+            padding: 0 15px;
+            border: none;
+        }
+
+        .post-detail {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            background-color: #fff;
+        }
+
+        .post-detail h1 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .post-detail p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .post-detail .btn-link {
+            font-size: 1rem;
+            color: #007bff;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: 1px solid #007bff;
+            background-color: #f8f9fa;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .post-detail .btn-link:hover {
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+        }
+
+        .link-url {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #007bff;
+            word-wrap: break-word;
+        }
+
+        .badge {
+            background-color: #ff007f;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .btn-thumbs-up {
+            background-color: #ffc107;
+            color: white;
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .btn-thumbs-up:hover {
+            background-color: #e0a800;
+            transform: scale(1.05);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
 
 <!-- Navbar Include -->
 <header>
-  <!-- Include navbar.html here -->
+    <!-- Include navbar.html here -->
 </header>
 
 <div class="container" style="margin-left: 250px; padding-top: 20px;">
-  <!-- 게시물 상세 내용 -->
-  <div id="post-detail" class="post-detail">
-    <!-- 게시물 내용이 여기에 추가됩니다 -->
-  </div>
-
-  <!-- 따봉 버튼 추가 -->
-  <p>
-    <strong>따봉:</strong> <span id="thumbsUpCount">0</span>
-    <button class="btn-thumbs-up" onclick="addThumbsUp(postId)">따봉 👍</button>
-  </p>
-
-  <!-- 수정 및 삭제 버튼 추가 -->
-  <div class="action-buttons">
-    <!-- 수정 버튼 -->
-    <button id="editButton" class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#editModal" style="display: none;">수정</button>
-    <!-- 삭제 버튼 -->
-    <button id="deleteButton" class="btn btn-danger" onclick="deletePost(postId)" style="display: none;">삭제</button>
-  </div>
-
-  <!-- 수정 모달 -->
-
-  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header" style="background-color: #ff007f;">
-          <h5 class="modal-title text-white" id="editModalLabel">글 수정</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="editForm">
-            <div class="mb-3">
-              <label for="editTitle" class="form-label">제목</label>
-              <input type="text" class="form-control" id="editTitle" required>
-            </div>
-            <div class="mb-3">
-              <label for="editContent" class="form-label">내용</label>
-              <textarea class="form-control" id="editContent" rows="5" required></textarea>
-            </div>
-            <div class="mb-3">
-              <label for="editHobby" class="form-label">취미 카테고리</label>
-              <select class="form-select" id="editHobby" required>
-                <option value="" disabled selected>취미 카테고리를 선택하세요</option>
-                <option value="CULTURAL_LIFE">문화생활</option>
-                <option value="EXERCISE">운동</option>
-                <option value="FOOD">음식</option>
-                <option value="GAME">게임</option>
-                <option value="MUSIC">음악</option>
-                <option value="TRAVEL">여행</option>
-                <option value="ETC">기타</option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="editVideoLink" class="form-label">비디오 링크</label>
-              <input type="text" class="form-control" id="editVideoLink" placeholder="비디오 링크를 입력하세요">
-              <div class="invalid-feedback">유효한 유튜브 링크를 입력하세요.</div>
-            </div>
-            <div class="mb-3">
-              <button type="submit" class="btn btn-primary">저장</button>
-            </div>
-          </form>
-        </div>
-      </div>
+    <!-- 게시물 상세 내용 -->
+    <div id="post-detail" class="post-detail">
+        <!-- 게시물 내용이 여기에 추가됩니다 -->
     </div>
-  </div>
+
+    <!-- 따봉 버튼 추가 -->
+    <p>
+        <strong>따봉:</strong> <span id="thumbsUpCount">0</span>
+        <button class="btn-thumbs-up" onclick="addThumbsUp(postId)">따봉 👍</button>
+    </p>
+
+    <!-- 수정 및 삭제 버튼 추가 -->
+    <div class="action-buttons">
+        <!-- 수정 버튼 -->
+        <button id="editButton" class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#editModal"
+                style="display: none;">수정
+        </button>
+        <!-- 삭제 버튼 -->
+        <button id="deleteButton" class="btn btn-danger" onclick="deletePost(postId)" style="display: none;">삭제</button>
+    </div>
+
+    <!-- 수정 모달 -->
+
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #ff007f;">
+                    <h5 class="modal-title text-white" id="editModalLabel">글 수정</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <div class="mb-3">
+                            <label for="editTitle" class="form-label">제목</label>
+                            <input type="text" class="form-control" id="editTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editContent" class="form-label">내용</label>
+                            <textarea class="form-control" id="editContent" rows="5" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editHobby" class="form-label">취미 카테고리</label>
+                            <select class="form-select" id="editHobby" required>
+                                <option value="" disabled selected>취미 카테고리를 선택하세요</option>
+                                <option value="CULTURAL_LIFE">문화생활</option>
+                                <option value="EXERCISE">운동</option>
+                                <option value="FOOD">음식</option>
+                                <option value="GAME">게임</option>
+                                <option value="MUSIC">음악</option>
+                                <option value="TRAVEL">여행</option>
+                                <option value="ETC">기타</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editVideoLink" class="form-label">비디오 링크</label>
+                            <input type="text" class="form-control" id="editVideoLink" placeholder="비디오 링크를 입력하세요">
+                            <div class="invalid-feedback">유효한 유튜브 링크를 입력하세요.</div>
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">저장</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- 프로필 등록/수정 모달 -->
 <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header" style="background-color: #ff007f;">
-        <h5 class="modal-title text-white" id="profileModalLabel">프로필 등록/수정</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form id="profileForm">
-          <div class="row">
-            <!-- 프로필 이미지 -->
-            <div class="col-md-4 mb-3">
-              <label for="profileImage" class="form-label">프로필 이미지</label>
-              <input type="file" class="form-control" id="profileImage" accept="image/png, image/jpeg, image/jpg, image/gif">
-              <div class="text-center">
-                <img id="profilePreview" src="/img/img.png" class="img-fluid rounded mt-2" alt="프로필 이미지 미리보기" style="width: 300px; height: 300px; object-fit: cover;">
-              </div>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #ff007f;">
+                <h5 class="modal-title text-white" id="profileModalLabel">프로필 등록/수정</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div class="modal-body">
+                <form id="profileForm">
+                    <div class="row">
+                        <!-- 프로필 이미지 -->
+                        <div class="col-md-4 mb-3">
+                            <label for="profileImage" class="form-label">프로필 이미지</label>
+                            <input type="file" class="form-control" id="profileImage"
+                                   accept="image/png, image/jpeg, image/jpg, image/gif">
+                            <div class="text-center">
+                                <img id="profilePreview" src="/img/img.png" class="img-fluid rounded mt-2"
+                                     alt="프로필 이미지 미리보기" style="width: 300px; height: 300px; object-fit: cover;">
+                            </div>
+                        </div>
 
-            <!-- 프로필 정보 입력란 -->
-            <div class="col-md-8">
-              <div class="mb-3">
-                <label for="mbti" class="form-label">MBTI</label>
-                <select class="form-select" id="profile_mbti" required>
-                  <option value="">선택하세요</option>
-                  <option value="ISTJ">ISTJ</option>
-                  <option value="ESTJ">ESTJ</option>
-                  <option value="INTJ">INTJ</option>
-                  <option value="ENTJ">ENTJ</option>
-                  <option value="ISFJ">ISFJ</option>
-                  <option value="ESFJ">ESFJ</option>
-                  <option value="INFJ">INFJ</option>
-                  <option value="ENFJ">ENFJ</option>
-                  <option value="ISTP">ISTP</option>
-                  <option value="ESTP">ESTP</option>
-                  <option value="INTP">INTP</option>
-                  <option value="ENTP">ENTP</option>
-                  <option value="ISFP">ISFP</option>
-                  <option value="ESFP">ESFP</option>
-                  <option value="INFP">INFP</option>
-                  <option value="ENFP">ENFP</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label for="region" class="form-label">사는 지역</label>
-                <select class="form-select" id="region" required>
-                  <option value="">선택하세요</option>
-                  <option value="파주">파주</option>
-                  <option value="인천">인천</option>
-                  <option value="익산">익산</option>
-                  <option value="서울">서울</option>
-                  <option value="대전">대전</option>
-                  <option value="대구">대구</option>
-                  <option value="고양">고양</option>
-                  <option value="광주">광주</option>
-                  <option value="시흥">시흥</option>
-                  <option value="군포">군포</option>
-                  <option value="평택">평택</option>
-                  <option value="성남">성남</option>
-                  <option value="천안">천안</option>
-                  <option value="거제">거제</option>
-                  <option value="부산">부산</option>
-                  <option value="의왕">의왕</option>
-                  <option value="창원">창원</option>
-                  <option value="청주">청주</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label for="major" class="form-label">전공</label>
-                <input type="text" class="form-control" id="profile_major" placeholder="전공을 입력하세요" required>
-              </div>
-              <div class="mb-3">
-                <label for="niceExperience" class="form-label">좋았던 경험</label>
-                <textarea class="form-control" id="niceExperience" placeholder="좋았던 경험을 입력하세요" rows="3" required></textarea>
-              </div>
-              <div class="mb-3">
-                <label for="plan" class="form-label">앞으로의 계획</label>
-                <textarea class="form-control" id="plan" placeholder="계획을 입력하세요" rows="3" required></textarea>
-              </div>
+                        <!-- 프로필 정보 입력란 -->
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <label for="mbti" class="form-label">MBTI</label>
+                                <select class="form-select" id="profile_mbti" required>
+                                    <option value="">선택하세요</option>
+                                    <option value="ISTJ">ISTJ</option>
+                                    <option value="ESTJ">ESTJ</option>
+                                    <option value="INTJ">INTJ</option>
+                                    <option value="ENTJ">ENTJ</option>
+                                    <option value="ISFJ">ISFJ</option>
+                                    <option value="ESFJ">ESFJ</option>
+                                    <option value="INFJ">INFJ</option>
+                                    <option value="ENFJ">ENFJ</option>
+                                    <option value="ISTP">ISTP</option>
+                                    <option value="ESTP">ESTP</option>
+                                    <option value="INTP">INTP</option>
+                                    <option value="ENTP">ENTP</option>
+                                    <option value="ISFP">ISFP</option>
+                                    <option value="ESFP">ESFP</option>
+                                    <option value="INFP">INFP</option>
+                                    <option value="ENFP">ENFP</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="region" class="form-label">사는 지역</label>
+                                <select class="form-select" id="region" required>
+                                    <option value="">선택하세요</option>
+                                    <option value="파주">파주</option>
+                                    <option value="인천">인천</option>
+                                    <option value="익산">익산</option>
+                                    <option value="서울">서울</option>
+                                    <option value="대전">대전</option>
+                                    <option value="대구">대구</option>
+                                    <option value="고양">고양</option>
+                                    <option value="광주">광주</option>
+                                    <option value="시흥">시흥</option>
+                                    <option value="군포">군포</option>
+                                    <option value="평택">평택</option>
+                                    <option value="성남">성남</option>
+                                    <option value="천안">천안</option>
+                                    <option value="거제">거제</option>
+                                    <option value="부산">부산</option>
+                                    <option value="의왕">의왕</option>
+                                    <option value="창원">창원</option>
+                                    <option value="청주">청주</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="major" class="form-label">전공</label>
+                                <input type="text" class="form-control" id="profile_major" placeholder="전공을 입력하세요"
+                                       required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="niceExperience" class="form-label">좋았던 경험</label>
+                                <textarea class="form-control" id="niceExperience" placeholder="좋았던 경험을 입력하세요" rows="3"
+                                          required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="plan" class="form-label">앞으로의 계획</label>
+                                <textarea class="form-control" id="plan" placeholder="계획을 입력하세요" rows="3"
+                                          required></textarea>
+                            </div>
 
-              <!-- 취미 선택 (버튼으로 변경) -->
-              <div class="mb-3">
-                <label class="form-label">취미 <span class="text-danger">*</span></label>
-                <div class="d-flex flex-wrap" id="hobbyButtons">
-                  <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="CULTURAL_LIFE">문화생활</button>
-                  <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="EXERCISE">운동</button>
-                  <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="FOOD">음식</button>
-                  <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="GAME">게임</button>
-                  <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="MUSIC">음악</button>
-                  <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="TRAVEL">여행</button>
-                  <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="ETC">기타</button>
-                </div>
-              </div>
+                            <!-- 취미 선택 (버튼으로 변경) -->
+                            <div class="mb-3">
+                                <label class="form-label">취미 <span class="text-danger">*</span></label>
+                                <div class="d-flex flex-wrap" id="hobbyButtons">
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="CULTURAL_LIFE">문화생활
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="EXERCISE">운동
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="FOOD">음식
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="GAME">게임
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="MUSIC">음악
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="TRAVEL">여행
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="ETC">기타
+                                    </button>
+                                </div>
+                            </div>
 
 
-              <!-- 세부 취미 선택 -->
-              <div class="mb-3" id="subHobbiesContainer" style="display: none;">
-                <label class="form-label">세부 취미</label>
-                <div class="d-flex flex-wrap" id="subHobbies"></div>
-                <div class="invalid-feedback" id="subHobbyError" style="display: none;">하나 이상의 세부 취미를 선택하세요.</div>
-              </div>
+                            <!-- 세부 취미 선택 -->
+                            <div class="mb-3" id="subHobbiesContainer" style="display: none;">
+                                <label class="form-label">세부 취미</label>
+                                <div class="d-flex flex-wrap" id="subHobbies"></div>
+                                <div class="invalid-feedback" id="subHobbyError" style="display: none;">하나 이상의 세부 취미를
+                                    선택하세요.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <span class="text-muted ms-2">* 관리자 승인 후 프로필이 등록됩니다.</span>
+                        <button type="submit" class="btn btn-primary">저장</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                    </div>
+                </form>
             </div>
-          </div>
-          <div class="modal-footer">
-            <span class="text-muted ms-2">* 관리자 승인 후 프로필이 등록됩니다.</span>
-            <button type="submit" class="btn btn-primary">저장</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-          </div>
-        </form>
-      </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -277,46 +310,46 @@
 <script type="module" src="/js/auth.js"></script>
 
 <script>
-  let postId;
-  document.addEventListener('DOMContentLoaded', function () {
-    const urlParams = new URLSearchParams(window.location.search);
-    const culturalLifeButton = document.querySelector('button[data-value="CULTURAL_LIFE"]');
-    if (culturalLifeButton) {
-      culturalLifeButton.click(); // 문화생활 버튼 클릭
-    }
-    postId = urlParams.get('postId');
+    let postId;
+    document.addEventListener('DOMContentLoaded', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const culturalLifeButton = document.querySelector('button[data-value="CULTURAL_LIFE"]');
+        if (culturalLifeButton) {
+            culturalLifeButton.click(); // 문화생활 버튼 클릭
+        }
+        postId = urlParams.get('postId');
 
-    if (postId) {
-      fetchPostDetail(postId);
-    }
+        if (postId) {
+            fetchPostDetail(postId);
+        }
 
-    document.getElementById('editForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      updatePost(postId);
-    });
-  });
-
-  function fetchPostDetail(postId) {
-
-    const url = `/api/posts/${postId}`;
-    const method = 'GET';
-    const headers = new Headers({
-        'Content-Type': 'application/json'
-    });
-
-    sendRequestWithToken(url, method, headers, null)
-        .then(response => response.json())
-        .then(data => {
-           renderPostDetail(data);
-
-           updateThumbsUp(data.response.thumbsUp);
-           checkOwnership(data.response.userId); // 사용자 확인 함수 호출
+        document.getElementById('editForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            updatePost(postId);
         });
-  }
+    });
 
-  function renderPostDetail(post) {
-    const postDetail = document.getElementById('post-detail');
-    postDetail.innerHTML = `
+    function fetchPostDetail(postId) {
+
+        const url = `/api/posts/${postId}`;
+        const method = 'GET';
+        const headers = new Headers({
+            'Content-Type': 'application/json'
+        });
+
+        sendRequestWithToken(url, method, headers, null)
+            .then(response => response.json())
+            .then(data => {
+                renderPostDetail(data);
+
+                updateThumbsUp(data.response.thumbsUp);
+                checkOwnership(data.response.userId); // 사용자 확인 함수 호출
+            });
+    }
+
+    function renderPostDetail(post) {
+        const postDetail = document.getElementById('post-detail');
+        postDetail.innerHTML = `
       <h1>${post.response.title}</h1>
       <p><strong>작성자:</strong> ${post.response.name}</p>
       <p><strong>취미:</strong> <span class="badge">${post.response.hobbyCategory}</span></p>
@@ -328,262 +361,263 @@
       ` : ''}
     `;
 
-    document.getElementById('editTitle').value = post.response.title;
-    document.getElementById('editContent').value = post.response.description;
-    document.getElementById('editHobby').value = post.response.hobbyCategory;
-    document.getElementById('editVideoLink').value = post.response.videoLink || '';
-  }
-
-  function checkOwnership(author) {
-    const token = localStorage.getItem("accessToken");
-
-    if (!token) {
-      console.error("토큰이 없습니다.");
-      return;
+        document.getElementById('editTitle').value = post.response.title;
+        document.getElementById('editContent').value = post.response.description;
+        document.getElementById('editHobby').value = post.response.hobbyCategory;
+        document.getElementById('editVideoLink').value = post.response.videoLink || '';
     }
 
-    const decodedToken = parseJwt(token);
-    const currentUser = decodedToken.id;
+    function checkOwnership(author) {
+        const token = localStorage.getItem("accessToken");
 
-    if (author === currentUser) {
-      document.getElementById('editButton').style.display = 'inline-block';
-      document.getElementById('deleteButton').style.display = 'inline-block';
+        if (!token) {
+            console.error("토큰이 없습니다.");
+            return;
+        }
+
+        const decodedToken = parseJwt(token);
+        const currentUser = decodedToken.id;
+
+        if (author === currentUser) {
+            document.getElementById('editButton').style.display = 'inline-block';
+            document.getElementById('deleteButton').style.display = 'inline-block';
+        }
+
+        if (decodedToken.role === 'ROLE_ADMIN') {
+            document.getElementById('deleteButton').style.display = 'inline-block';
+        }
     }
 
-    if (decodedToken.role === 'ROLE_ADMIN') {
-      document.getElementById('deleteButton').style.display = 'inline-block';
+    function parseJwt(token) {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        return JSON.parse(jsonPayload);
     }
-  }
-  function parseJwt(token) {
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
 
-    return JSON.parse(jsonPayload);
-  }
+    function updateThumbsUp(thumbsUp) {
+        document.getElementById('thumbsUpCount').textContent = thumbsUp;
+    }
 
-  function updateThumbsUp(thumbsUp) {
-    document.getElementById('thumbsUpCount').textContent = thumbsUp;
-  }
-
-  function addThumbsUp(postId) {
-    const url = `/api/posts/${postId}/thumbsUp`;
-    const method = 'GET';
-    const headers = new Headers({
-        'Content-Type': 'application/json'
-    });
-
-    sendRequestWithToken(url, method, headers, null)
-        .then(response => response.json())
-        .then(data => {
-           updateThumbsUp(data.response);
+    function addThumbsUp(postId) {
+        const url = `/api/posts/${postId}/thumbsUp`;
+        const method = 'GET';
+        const headers = new Headers({
+            'Content-Type': 'application/json'
         });
-  }
 
-  function updatePost(postId) {
-    const title = document.getElementById('editTitle').value;
-    const description = document.getElementById('editContent').value;
-    const hobbyCategory = document.getElementById('editHobby').value;
-    const videoLink = document.getElementById('editVideoLink').value;
-
-    const url = `/api/posts/${postId}`;
-    const method = 'POST';
-    const headers = new Headers({
-        'Content-Type': 'application/json'
-    });
-    const body = JSON.stringify({ title, description, hobbyCategory, videoLink });
-
-    sendRequestWithToken(url, method, headers, body)
-      .then(response => response.json())
-      .then(data => {
-         alert('글이 수정되었습니다.');
-         window.location.reload();
-      });
-  }
-
-  function deletePost(postId) {
-
-    if (confirm('정말로 이 게시물을 삭제하시겠습니까?')) {
-
-      const url = `/api/posts/${postId}`;
-      const method = 'DELETE';
-      const headers = new Headers({
-        'Content-Type': 'application/json'
-      });
-
-      sendRequestWithToken(url, method, headers, null)
-        .then(response => {
-                if (response.ok) {
-                  alert('게시물이 삭제되었습니다.');
-                  window.location.href = '/board.html'; // 또는 다른 페이지로 리디렉션
-                } else {
-                  alert('게시물 삭제에 실패했습니다.');
-                }
-       });
+        sendRequestWithToken(url, method, headers, null)
+            .then(response => response.json())
+            .then(data => {
+                updateThumbsUp(data.response);
+            });
     }
-  }
+
+    function updatePost(postId) {
+        const title = document.getElementById('editTitle').value;
+        const description = document.getElementById('editContent').value;
+        const hobbyCategory = document.getElementById('editHobby').value;
+        const videoLink = document.getElementById('editVideoLink').value;
+
+        const url = `/api/posts/${postId}`;
+        const method = 'POST';
+        const headers = new Headers({
+            'Content-Type': 'application/json'
+        });
+        const body = JSON.stringify({title, description, hobbyCategory, videoLink});
+
+        sendRequestWithToken(url, method, headers, body)
+            .then(response => response.json())
+            .then(data => {
+                alert('글이 수정되었습니다.');
+                window.location.reload();
+            });
+    }
+
+    function deletePost(postId) {
+
+        if (confirm('정말로 이 게시물을 삭제하시겠습니까?')) {
+
+            const url = `/api/posts/${postId}`;
+            const method = 'DELETE';
+            const headers = new Headers({
+                'Content-Type': 'application/json'
+            });
+
+            sendRequestWithToken(url, method, headers, null)
+                .then(response => {
+                    if (response.ok) {
+                        alert('게시물이 삭제되었습니다.');
+                        window.location.href = '/board.html'; // 또는 다른 페이지로 리디렉션
+                    } else {
+                        alert('게시물 삭제에 실패했습니다.');
+                    }
+                });
+        }
+    }
 
 
-  // 세부 취미 리스트
-  const hobbyDetails = {
-    'CULTURAL_LIFE': ['축구 관람', '야구 관람', '뮤지컬', '연극', '영화', '독서', '애니메이션 시청', '금속 공예'],
-    'EXERCISE': ['헬스', '검도', '다이어트', '축구', '농구', '배드민턴', '스케이트 보드', '산책', '달리기', '줄넘기', '운동', '수영'],
-    'FOOD': ['커피', '요리', '맛집 찾기', '음주', '빵집 찾기'],
-    'GAME': ['게임'],
-    'MUSIC': ['음악 감상', '노래'],
-    'TRAVEL': ['여행'],
-    'ETC': ['강아지', '고양이', '깃허브 구경', '드라이브', '필름 사진', '귀여운거 보기', '글 쓰기', '밸런스 게임 만들기', '알고리즘 문제 풀기', '트레이딩', '잡담하기']
-  };
+    // 세부 취미 리스트
+    const hobbyDetails = {
+        'CULTURAL_LIFE': ['축구 관람', '야구 관람', '뮤지컬', '연극', '영화', '독서', '애니메이션 시청', '금속 공예'],
+        'EXERCISE': ['헬스', '검도', '다이어트', '축구', '농구', '배드민턴', '스케이트 보드', '산책', '달리기', '줄넘기', '운동', '수영'],
+        'FOOD': ['커피', '요리', '맛집 찾기', '음주', '빵집 찾기'],
+        'GAME': ['게임'],
+        'MUSIC': ['음악 감상', '노래'],
+        'TRAVEL': ['여행'],
+        'ETC': ['강아지', '고양이', '깃허브 구경', '드라이브', '필름 사진', '귀여운거 보기', '글 쓰기', '밸런스 게임 만들기', '알고리즘 문제 풀기', '트레이딩', '잡담하기']
+    };
 
-  const subHobbiesContainer = document.getElementById('subHobbiesContainer');
-  const subHobbiesDiv = document.getElementById('subHobbies');
+    const subHobbiesContainer = document.getElementById('subHobbiesContainer');
+    const subHobbiesDiv = document.getElementById('subHobbies');
 
-  // 세부 취미를 기억하기 위한 배열
-  let selectedSubHobbies = [];
+    // 세부 취미를 기억하기 위한 배열
+    let selectedSubHobbies = [];
 
-  // 버튼 클릭 이벤트 리스너
-  const hobbyButtons = document.querySelectorAll('.hobby-btn');
-  hobbyButtons.forEach(button => {
-    button.addEventListener('click', function () {
-      const hobby = this.getAttribute('data-value'); // data-value 속성으로 변경
+    // 버튼 클릭 이벤트 리스너
+    const hobbyButtons = document.querySelectorAll('.hobby-btn');
+    hobbyButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const hobby = this.getAttribute('data-value'); // data-value 속성으로 변경
 
-      // 세부 취미 목록 초기화
-      subHobbiesDiv.innerHTML = '';
-      subHobbiesContainer.style.display = 'block';
+            // 세부 취미 목록 초기화
+            subHobbiesDiv.innerHTML = '';
+            subHobbiesContainer.style.display = 'block';
 
-      // 선택한 취미에 해당하는 세부 취미 표시
-      const hobbies = hobbyDetails[hobby];
+            // 선택한 취미에 해당하는 세부 취미 표시
+            const hobbies = hobbyDetails[hobby];
 
-      // hobbies가 정의되어 있는지 확인
-      if (hobbies) {
-        hobbies.forEach(subHobby => {
-          const div = document.createElement('div');
-          div.classList.add('form-check', 'me-3');
+            // hobbies가 정의되어 있는지 확인
+            if (hobbies) {
+                hobbies.forEach(subHobby => {
+                    const div = document.createElement('div');
+                    div.classList.add('form-check', 'me-3');
 
-          // 체크박스 상태 설정
-          const isChecked = selectedSubHobbies.includes(subHobby);
-          div.innerHTML = `
+                    // 체크박스 상태 설정
+                    const isChecked = selectedSubHobbies.includes(subHobby);
+                    div.innerHTML = `
                     <input class="form-check-input sub-hobby-checkbox" type="checkbox" value="${subHobby}" id="${subHobby}" ${isChecked ? 'checked' : ''}>
                     <label class="form-check-label" for="${subHobby}">${subHobby}</label>
                 `;
-          subHobbiesDiv.appendChild(div);
-        });
-      } else {
-        console.error(`No hobbies found for: ${hobby}`);
-      }
+                    subHobbiesDiv.appendChild(div);
+                });
+            } else {
+                console.error(`No hobbies found for: ${hobby}`);
+            }
 
-      // 체크박스 이벤트 리스너
-      const subHobbyCheckboxes = document.querySelectorAll('.sub-hobby-checkbox');
-      subHobbyCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', function () {
-          if (this.checked) {
-            selectedSubHobbies.push(this.value);
-          } else {
-            selectedSubHobbies = selectedSubHobbies.filter(hobby => hobby !== this.value);
-          }
+            // 체크박스 이벤트 리스너
+            const subHobbyCheckboxes = document.querySelectorAll('.sub-hobby-checkbox');
+            subHobbyCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function () {
+                    if (this.checked) {
+                        selectedSubHobbies.push(this.value);
+                    } else {
+                        selectedSubHobbies = selectedSubHobbies.filter(hobby => hobby !== this.value);
+                    }
+                });
+            });
         });
-      });
     });
-  });
 
-  // 프로필 저장 로직 (POST)
-  document.getElementById('profileForm').addEventListener('submit', function (e) {
-    e.preventDefault();
+    // 프로필 저장 로직 (POST)
+    document.getElementById('profileForm').addEventListener('submit', function (e) {
+        e.preventDefault();
 
-    const subHobbyError = document.getElementById('subHobbyError'); // 세부 취미 에러 메시지 요소
+        const subHobbyError = document.getElementById('subHobbyError'); // 세부 취미 에러 메시지 요소
 
-    if (selectedSubHobbies.length === 0) {
-      e.preventDefault();
-      subHobbyError.style.display = 'block'; // 세부 취미 에러 메시지 표시
-      return; // 함수 종료
-    } else {
-      subHobbyError.style.display = 'none'; // 세부 취미 에러 메시지 숨기기
-    }
+        if (selectedSubHobbies.length === 0) {
+            e.preventDefault();
+            subHobbyError.style.display = 'block'; // 세부 취미 에러 메시지 표시
+            return; // 함수 종료
+        } else {
+            subHobbyError.style.display = 'none'; // 세부 취미 에러 메시지 숨기기
+        }
 
-    const formData = new FormData();
-    formData.append('niceExperience', document.getElementById('niceExperience').value);
-    formData.append('mbti', document.getElementById('profile_mbti').value);
-    formData.append('region', document.getElementById('region').value);
-    formData.append('major', document.getElementById('profile_major').value);
-    formData.append('plan', document.getElementById('plan').value);
+        const formData = new FormData();
+        formData.append('niceExperience', document.getElementById('niceExperience').value);
+        formData.append('mbti', document.getElementById('profile_mbti').value);
+        formData.append('region', document.getElementById('region').value);
+        formData.append('major', document.getElementById('profile_major').value);
+        formData.append('plan', document.getElementById('plan').value);
 
-    // 프로필 이미지 처리
-    const imageFile = document.getElementById('profileImage').files[0];
-    if (imageFile) {
-      formData.append('profileImage', imageFile);
-    }
+        // 프로필 이미지 처리
+        const imageFile = document.getElementById('profileImage').files[0];
+        if (imageFile) {
+            formData.append('profileImage', imageFile);
+        }
 
-    // 선택된 취미 처리
-    const selectedHobbies = Array.from(document.querySelectorAll('.hobby-checkbox:checked'))
+        // 선택된 취미 처리
+        const selectedHobbies = Array.from(document.querySelectorAll('.hobby-checkbox:checked'))
             .map(checkbox => checkbox.value);
-    formData.append('hobbies', JSON.stringify(selectedHobbies));
-    formData.append('subHobbies', selectedSubHobbies);
+        formData.append('hobbies', JSON.stringify(selectedHobbies));
+        formData.append('subHobbies', selectedSubHobbies);
 
-    const url = `/api/profiles`;
-    const method = 'POST';
+        const url = `/api/profiles`;
+        const method = 'POST';
 
-    sendRequestWithToken(url, method, null, formData)
+        sendRequestWithToken(url, method, null, formData)
             .then(response => response.json())
             .then(data => {
-              alert('프로필이 저장 요청이 완료되었습니다.');
-              // 필요한 경우 페이지를 리로드하거나 UI를 업데이트
-              location.reload();
+                alert('프로필이 저장 요청이 완료되었습니다.');
+                // 필요한 경우 페이지를 리로드하거나 UI를 업데이트
+                location.reload();
             })
             .catch(error => {
-              console.error('프로필 저장 중 오류 발생', error);
+                console.error('프로필 저장 중 오류 발생', error);
             });
-  });
-
-  // 모달이 열릴 때 프로필 로드
-  document.getElementById('profileModal').addEventListener('show.bs.modal', function (event) {
-    loadUserProfile();
-  });
-
-  // 프로필 등록/수정 모달 로드 시 데이터 처리 (GET)
-  function loadUserProfile() {
-
-    const url = `/api/profiles/upload`;
-    const method = 'GET';
-    const headers = new Headers({
-      'Content-Type': 'application/json'
     });
-    sendRequestWithToken(url, method, headers, null)
+
+    // 모달이 열릴 때 프로필 로드
+    document.getElementById('profileModal').addEventListener('show.bs.modal', function (event) {
+        loadUserProfile();
+    });
+
+    // 프로필 등록/수정 모달 로드 시 데이터 처리 (GET)
+    function loadUserProfile() {
+
+        const url = `/api/profiles/upload`;
+        const method = 'GET';
+        const headers = new Headers({
+            'Content-Type': 'application/json'
+        });
+        sendRequestWithToken(url, method, headers, null)
             .then(response => response.json())
             .then(data => {
-              if (data) {
-                // 데이터가 있으면 모달에 해당 정보를 채워줍니다
-                document.getElementById('niceExperience').value = data.response.niceExperience || '';
-                document.getElementById('profile_mbti').value = data.response.mbti || '';
-                document.getElementById('region').value = data.response.region || '';
-                document.getElementById('profile_major').value = data.response.major || '';
-                document.getElementById('plan').value = data.response.plan || '';
+                if (data) {
+                    // 데이터가 있으면 모달에 해당 정보를 채워줍니다
+                    document.getElementById('niceExperience').value = data.response.niceExperience || '';
+                    document.getElementById('profile_mbti').value = data.response.mbti || '';
+                    document.getElementById('region').value = data.response.region || '';
+                    document.getElementById('profile_major').value = data.response.major || '';
+                    document.getElementById('plan').value = data.response.plan || '';
 
-              } else {
-                // 데이터가 없으면 placeholder 표시
-                document.getElementById('niceExperience').placeholder = '좋았던 경험을 입력하세요';
-                document.getElementById('profile_major').placeholder = '전공을 입력하세요';
-                document.getElementById('plan').placeholder = '계획을 입력하세요';
-              }
+                } else {
+                    // 데이터가 없으면 placeholder 표시
+                    document.getElementById('niceExperience').placeholder = '좋았던 경험을 입력하세요';
+                    document.getElementById('profile_major').placeholder = '전공을 입력하세요';
+                    document.getElementById('plan').placeholder = '계획을 입력하세요';
+                }
             });
-  }
-
-  // 이미지 파일 선택 시 미리보기 업데이트
-  document.getElementById('profileImage').addEventListener('change', function(event) {
-    const file = event.target.files[0];
-    const preview = document.getElementById('profilePreview');
-
-    if (file && file.type.match('image.*')) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        preview.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    } else {
-      preview.src = 'img.png';  // 기본 이미지로 초기화
     }
-  });
+
+    // 이미지 파일 선택 시 미리보기 업데이트
+    document.getElementById('profileImage').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        const preview = document.getElementById('profilePreview');
+
+        if (file && file.type.match('image.*')) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = 'img.png';  // 기본 이미지로 초기화
+        }
+    });
 </script>
 </body>
 </html>

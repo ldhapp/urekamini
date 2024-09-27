@@ -91,10 +91,12 @@ h1 {
         height: 500px; /* 작은 화면에서의 높이 조정 */
     }
 }
+
 #calculateDistanceBtn:hover {
     background-color: #007bff;
     color: white;
 }
+
 .modal-body {
     max-height: 400px; /* 최대 높이 설정 */
     overflow-y: auto; /* 세로 스크롤 가능 */
@@ -109,6 +111,7 @@ h1 {
     font-size: 1.25rem;
     margin-bottom: 10px;
 }
+
 .distance-result {
     font-size: 1.2rem; /* 폰트 크기 */
     color: #333; /* 글자 색상 */

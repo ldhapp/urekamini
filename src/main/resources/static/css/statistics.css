@@ -48,9 +48,26 @@
 }
 
 /* 색상 배경을 위한 CSS 클래스 */
-.bg-primary { background: linear-gradient(45deg, #4e73df, #2e59d9); }
-.bg-success { background: linear-gradient(45deg, #1cc88a, #17a673); }
-.bg-info { background: linear-gradient(45deg, #36b9cc, #2c9faf); }
-.bg-warning { background: linear-gradient(45deg, #f6c23e, #f1b82e); }
-.bg-danger { background: linear-gradient(45deg, #e74a3b, #e14a2c); }
-.bg-secondary { background: linear-gradient(45deg, #6c757d, #5a6268); }
+.bg-primary {
+    background: linear-gradient(45deg, #4e73df, #2e59d9);
+}
+
+.bg-success {
+    background: linear-gradient(45deg, #1cc88a, #17a673);
+}
+
+.bg-info {
+    background: linear-gradient(45deg, #36b9cc, #2c9faf);
+}
+
+.bg-warning {
+    background: linear-gradient(45deg, #f6c23e, #f1b82e);
+}
+
+.bg-danger {
+    background: linear-gradient(45deg, #e74a3b, #e14a2c);
+}
+
+.bg-secondary {
+    background: linear-gradient(45deg, #6c757d, #5a6268);
+}

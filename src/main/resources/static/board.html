@@ -11,6 +11,7 @@
         .table th, .table td {
             vertical-align: middle;
         }
+
         .btn-custom {
             background-color: #ff007f;
             color: white;
@@ -73,7 +74,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="postContent" class="form-label">내용</label>
-                        <textarea class="form-control" id="postContent" rows="5" placeholder="내용을 입력하세요" required></textarea>
+                        <textarea class="form-control" id="postContent" rows="5" placeholder="내용을 입력하세요"
+                                  required></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="postCategory" class="form-label">취미 카테고리</label>
@@ -116,9 +118,11 @@
                         <!-- 프로필 이미지 -->
                         <div class="col-md-4 mb-3">
                             <label for="profileImage" class="form-label">프로필 이미지</label>
-                            <input type="file" class="form-control" id="profileImage" accept="image/png, image/jpeg, image/jpg, image/gif">
+                            <input type="file" class="form-control" id="profileImage"
+                                   accept="image/png, image/jpeg, image/jpg, image/gif">
                             <div class="text-center">
-                                <img id="profilePreview" src="/img/img.png" class="img-fluid rounded mt-2" alt="프로필 이미지 미리보기" style="width: 300px; height: 300px; object-fit: cover;">
+                                <img id="profilePreview" src="/img/img.png" class="img-fluid rounded mt-2"
+                                     alt="프로필 이미지 미리보기" style="width: 300px; height: 300px; object-fit: cover;">
                             </div>
                         </div>
 
@@ -172,28 +176,45 @@
                             </div>
                             <div class="mb-3">
                                 <label for="major" class="form-label">전공</label>
-                                <input type="text" class="form-control" id="profile_major" placeholder="전공을 입력하세요" required>
+                                <input type="text" class="form-control" id="profile_major" placeholder="전공을 입력하세요"
+                                       required>
                             </div>
                             <div class="mb-3">
                                 <label for="niceExperience" class="form-label">좋았던 경험</label>
-                                <textarea class="form-control" id="niceExperience" placeholder="좋았던 경험을 입력하세요" rows="3" required></textarea>
+                                <textarea class="form-control" id="niceExperience" placeholder="좋았던 경험을 입력하세요" rows="3"
+                                          required></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="plan" class="form-label">앞으로의 계획</label>
-                                <textarea class="form-control" id="plan" placeholder="계획을 입력하세요" rows="3" required></textarea>
+                                <textarea class="form-control" id="plan" placeholder="계획을 입력하세요" rows="3"
+                                          required></textarea>
                             </div>
 
                             <!-- 취미 선택 (버튼으로 변경) -->
                             <div class="mb-3">
                                 <label class="form-label">취미 <span class="text-danger">*</span></label>
                                 <div class="d-flex flex-wrap" id="hobbyButtons">
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="CULTURAL_LIFE">문화생활</button>
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="EXERCISE">운동</button>
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="FOOD">음식</button>
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="GAME">게임</button>
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="MUSIC">음악</button>
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="TRAVEL">여행</button>
-                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn" data-value="ETC">기타</button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="CULTURAL_LIFE">문화생활
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="EXERCISE">운동
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="FOOD">음식
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="GAME">게임
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="MUSIC">음악
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="TRAVEL">여행
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary me-2 hobby-btn"
+                                            data-value="ETC">기타
+                                    </button>
                                 </div>
                             </div>
 
@@ -202,7 +223,9 @@
                             <div class="mb-3" id="subHobbiesContainer" style="display: none;">
                                 <label class="form-label">세부 취미</label>
                                 <div class="d-flex flex-wrap" id="subHobbies"></div>
-                                <div class="invalid-feedback" id="subHobbyError" style="display: none;">하나 이상의 세부 취미를 선택하세요.</div>
+                                <div class="invalid-feedback" id="subHobbyError" style="display: none;">하나 이상의 세부 취미를
+                                    선택하세요.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -250,7 +273,7 @@
                 currentPage = data.response.number;
                 totalPages = data.response.totalPages;
                 renderPagination(); // 페이지네이션 버튼을 새로 고침
-        });
+            });
     }
 
     function renderPostTable(posts, page) {
@@ -302,7 +325,7 @@
 
         const url = '/api/posts';
         const method = 'POST';
-        const body = JSON.stringify({ title, description, hobbyCategory, videoLink });
+        const body = JSON.stringify({title, description, hobbyCategory, videoLink});
         const headers = new Headers({
             'Content-Type': 'application/json'
         });
@@ -312,7 +335,7 @@
             .then(data => {
                 alert('글이 저장되었습니다.');
                 document.querySelector('[data-bs-dismiss="modal"]').click(); // 모달 닫기
-                fetchPosts(currentPage,pageSize); // 게시물 목록 새로 고침
+                fetchPosts(currentPage, pageSize); // 게시물 목록 새로 고침
             });
     }
 
@@ -475,13 +498,13 @@
     }
 
     // 이미지 파일 선택 시 미리보기 업데이트
-    document.getElementById('profileImage').addEventListener('change', function(event) {
+    document.getElementById('profileImage').addEventListener('change', function (event) {
         const file = event.target.files[0];
         const preview = document.getElementById('profilePreview');
 
         if (file && file.type.match('image.*')) {
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 preview.src = e.target.result;
             };
             reader.readAsDataURL(file);
