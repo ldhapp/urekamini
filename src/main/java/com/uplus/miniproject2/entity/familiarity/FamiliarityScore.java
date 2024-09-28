@@ -30,20 +30,30 @@ public class FamiliarityScore {
     @ManyToOne(fetch = FetchType.LAZY)
     private User targetUser;
 
-    private Double score;
+    private Double nameScore;
+    private Double mbtiScore;
+    private Double hobbyScore;
+    private Double finalScore;
 
     private LocalDateTime lastCalculated;
 
     @Builder
-    public FamiliarityScore(User loginedUser, User targetUser, Double score, LocalDateTime lastCalculated) {
+    public FamiliarityScore(User loginedUser, User targetUser, Double nameScore, Double mbtiScore, Double hobbyScore,
+                            Double finalScore, LocalDateTime lastCalculated) {
         this.loginedUser = loginedUser;
         this.targetUser = targetUser;
-        this.score = score;
+        this.nameScore = nameScore;
+        this.mbtiScore = mbtiScore;
+        this.hobbyScore = hobbyScore;
+        this.finalScore = finalScore;
         this.lastCalculated = lastCalculated;
     }
 
-    public void updateScore(Double newScore) {
-        this.score = newScore;
+    public void updateScore(Double newNameScore, Double newMbtiScore, Double newHobbyScore, Double newFinalScore) {
+        this.nameScore = newNameScore;
+        this.mbtiScore = newMbtiScore;
+        this.hobbyScore = newHobbyScore;
+        this.finalScore = newFinalScore;
         this.lastCalculated = LocalDateTime.now();
     }
 }
