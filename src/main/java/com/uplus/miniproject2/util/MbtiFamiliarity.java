@@ -11,7 +11,7 @@ public class MbtiFamiliarity {
         EnumMap<MBTI, Integer> infjMap = new EnumMap<>(MBTI.class);
         infjMap.put(MBTI.INFJ, 97); infjMap.put(MBTI.INTJ, 90); infjMap.put(MBTI.INTP, 65);
         infjMap.put(MBTI.INFP, 75); infjMap.put(MBTI.ENFJ, 90); infjMap.put(MBTI.ENFP, 100);
-        infjMap.put(MBTI.ENTP, 95); infjMap.put(MBTI.INTJ, 90); infjMap.put(MBTI.ISFJ, 50);
+        infjMap.put(MBTI.ENTP, 95); infjMap.put(MBTI.ENTJ, 55); infjMap.put(MBTI.ISFJ, 50);
         infjMap.put(MBTI.ISTJ, 50); infjMap.put(MBTI.ISTP, 55); infjMap.put(MBTI.ISFP, 60);
         infjMap.put(MBTI.ESTJ, 40); infjMap.put(MBTI.ESFJ, 60); infjMap.put(MBTI.ESFP, 85);
         infjMap.put(MBTI.ESTP, 80);
@@ -20,7 +20,7 @@ public class MbtiFamiliarity {
         EnumMap<MBTI, Integer> intjMap = new EnumMap<>(MBTI.class);
         intjMap.put(MBTI.INFJ, 90); intjMap.put(MBTI.INTJ, 97); intjMap.put(MBTI.INTP, 75);
         intjMap.put(MBTI.INFP, 90); intjMap.put(MBTI.ENFJ, 70); intjMap.put(MBTI.ENFP, 95);
-        intjMap.put(MBTI.ENTP, 90); intjMap.put(MBTI.INTP, 75); intjMap.put(MBTI.ISFJ, 45);
+        intjMap.put(MBTI.ENTP, 90); intjMap.put(MBTI.ENTJ, 70); intjMap.put(MBTI.ISFJ, 45);
         intjMap.put(MBTI.ISTJ, 50); intjMap.put(MBTI.ISTP, 60); intjMap.put(MBTI.ISFP, 65);
         intjMap.put(MBTI.ESTJ, 40); intjMap.put(MBTI.ESFJ, 40); intjMap.put(MBTI.ESFP, 85);
         intjMap.put(MBTI.ESTP, 85);
@@ -29,7 +29,7 @@ public class MbtiFamiliarity {
         EnumMap<MBTI, Integer> intpMap = new EnumMap<>(MBTI.class);
         intpMap.put(MBTI.INFJ, 65); intpMap.put(MBTI.INTJ, 75); intpMap.put(MBTI.INTP, 97);
         intpMap.put(MBTI.INFP, 97); intpMap.put(MBTI.ENFJ, 55); intpMap.put(MBTI.ENFP, 95);
-        intpMap.put(MBTI.ENTP, 90); intpMap.put(MBTI.INTP, 75); intpMap.put(MBTI.ISFJ, 40);
+        intpMap.put(MBTI.ENTP, 90); intpMap.put(MBTI.ENTJ, 100); intpMap.put(MBTI.ISFJ, 40);
         intpMap.put(MBTI.ISTJ, 50); intpMap.put(MBTI.ISTP, 50); intpMap.put(MBTI.ISFP, 50);
         intpMap.put(MBTI.ESTJ, 40); intpMap.put(MBTI.ESFJ, 50); intpMap.put(MBTI.ESFP, 75);
         intpMap.put(MBTI.ESTP, 75);
@@ -41,6 +41,7 @@ public class MbtiFamiliarity {
         enfpMap.put(MBTI.ENTP, 97); enfpMap.put(MBTI.ISFJ, 60); enfpMap.put(MBTI.ISTJ, 55);
         enfpMap.put(MBTI.ISTP, 75); enfpMap.put(MBTI.ISFP, 85); enfpMap.put(MBTI.ESTJ, 40);
         enfpMap.put(MBTI.ESFJ, 70); enfpMap.put(MBTI.ESFP, 85); enfpMap.put(MBTI.ESTP, 85);
+        enfpMap.put(MBTI.ENTJ, 65);
         familiarityMap.put(MBTI.ENFP, enfpMap);
 
         EnumMap<MBTI, Integer> enfjMap = new EnumMap<>(MBTI.class);
@@ -49,6 +50,7 @@ public class MbtiFamiliarity {
         enfjMap.put(MBTI.ENTP, 90); enfjMap.put(MBTI.ISFJ, 60); enfjMap.put(MBTI.ISTJ, 50);
         enfjMap.put(MBTI.ISTP, 70); enfjMap.put(MBTI.ISFP, 85); enfjMap.put(MBTI.ESTJ, 40);
         enfjMap.put(MBTI.ESFJ, 80); enfjMap.put(MBTI.ESFP, 85); enfjMap.put(MBTI.ESTP, 75);
+        enfjMap.put(MBTI.ENTJ, 90);
         familiarityMap.put(MBTI.ENFJ, enfjMap);
 
         EnumMap<MBTI, Integer> entjMap = new EnumMap<>(MBTI.class);
@@ -57,6 +59,7 @@ public class MbtiFamiliarity {
         entjMap.put(MBTI.ENTP, 95); entjMap.put(MBTI.ISFJ, 45); entjMap.put(MBTI.ISTJ, 50);
         entjMap.put(MBTI.ISTP, 65); entjMap.put(MBTI.ISFP, 70); entjMap.put(MBTI.ESTJ, 75);
         entjMap.put(MBTI.ESFJ, 65); entjMap.put(MBTI.ESFP, 85); entjMap.put(MBTI.ESTP, 90);
+        entjMap.put(MBTI.ENTJ, 97);
         familiarityMap.put(MBTI.ENTJ, entjMap);
 
         EnumMap<MBTI, Integer> infpMap = new EnumMap<>(MBTI.class);
@@ -65,6 +68,7 @@ public class MbtiFamiliarity {
         infpMap.put(MBTI.ENTP, 90); infpMap.put(MBTI.ISFJ, 55); infpMap.put(MBTI.ISTJ, 60);
         infpMap.put(MBTI.ISTP, 65); infpMap.put(MBTI.ISFP, 75); infpMap.put(MBTI.ESTJ, 40);
         infpMap.put(MBTI.ESFJ, 55); infpMap.put(MBTI.ESFP, 75); infpMap.put(MBTI.ESTP, 65);
+        infpMap.put(MBTI.ENTJ, 95);
         familiarityMap.put(MBTI.INFP, infpMap);
 
         EnumMap<MBTI, Integer> isfjMap = new EnumMap<>(MBTI.class);
@@ -73,6 +77,7 @@ public class MbtiFamiliarity {
         isfjMap.put(MBTI.ENTP, 60); isfjMap.put(MBTI.ISFJ, 97); isfjMap.put(MBTI.ISTJ, 50);
         isfjMap.put(MBTI.ISTP, 45); isfjMap.put(MBTI.ISFP, 50); isfjMap.put(MBTI.ESTJ, 80);
         isfjMap.put(MBTI.ESFJ, 90); isfjMap.put(MBTI.ESFP, 100); isfjMap.put(MBTI.ESTP, 75);
+        isfjMap.put(MBTI.ENTJ, 40);
         familiarityMap.put(MBTI.ISFJ, isfjMap);
 
         EnumMap<MBTI, Integer> istjMap = new EnumMap<>(MBTI.class);
@@ -81,6 +86,7 @@ public class MbtiFamiliarity {
         istjMap.put(MBTI.ENTP, 55); istjMap.put(MBTI.ISFJ, 50); istjMap.put(MBTI.ISTJ, 97);
         istjMap.put(MBTI.ISTP, 45); istjMap.put(MBTI.ISFP, 50); istjMap.put(MBTI.ESTJ, 80);
         istjMap.put(MBTI.ESFJ, 80); istjMap.put(MBTI.ESFP, 90); istjMap.put(MBTI.ESTP, 75);
+        istjMap.put(MBTI.ENTJ, 60);
         familiarityMap.put(MBTI.ISTJ, istjMap);
 
         EnumMap<MBTI, Integer> istpMap = new EnumMap<>(MBTI.class);
@@ -89,6 +95,7 @@ public class MbtiFamiliarity {
         istpMap.put(MBTI.ENTP, 75); istpMap.put(MBTI.ISFJ, 45); istpMap.put(MBTI.ISTJ, 45);
         istpMap.put(MBTI.ISTP, 97); istpMap.put(MBTI.ISFP, 95); istpMap.put(MBTI.ESTJ, 50);
         istpMap.put(MBTI.ESFJ, 55); istpMap.put(MBTI.ESFP, 85); istpMap.put(MBTI.ESTP, 100);
+        istpMap.put(MBTI.ENTJ, 85);
         familiarityMap.put(MBTI.ISTP, istpMap);
 
         EnumMap<MBTI, Integer> isfpMap = new EnumMap<>(MBTI.class);
@@ -97,6 +104,7 @@ public class MbtiFamiliarity {
         isfpMap.put(MBTI.ENTP, 85); isfpMap.put(MBTI.ISFJ, 50); isfpMap.put(MBTI.ISTJ, 50);
         isfpMap.put(MBTI.ISTP, 95); isfpMap.put(MBTI.ISFP, 97); isfpMap.put(MBTI.ESTJ, 45);
         isfpMap.put(MBTI.ESFJ, 65); isfpMap.put(MBTI.ESFP, 100); isfpMap.put(MBTI.ESTP, 95);
+        isfpMap.put(MBTI.ENTJ, 80);
         familiarityMap.put(MBTI.ISFP, isfpMap);
 
         EnumMap<MBTI, Integer> esfjMap = new EnumMap<>(MBTI.class);
@@ -105,6 +113,7 @@ public class MbtiFamiliarity {
         esfjMap.put(MBTI.ENTP, 65); esfjMap.put(MBTI.ISFJ, 90); esfjMap.put(MBTI.ISTJ, 80);
         esfjMap.put(MBTI.ISTP, 55); esfjMap.put(MBTI.ISFP, 65); esfjMap.put(MBTI.ESTJ, 97);
         esfjMap.put(MBTI.ESFJ, 97); esfjMap.put(MBTI.ESFP, 90); esfjMap.put(MBTI.ESTP, 80);
+        esfjMap.put(MBTI.ENTJ, 45);
         familiarityMap.put(MBTI.ESFJ, esfjMap);
 
         EnumMap<MBTI, Integer> estjMap = new EnumMap<>(MBTI.class);
@@ -113,6 +122,7 @@ public class MbtiFamiliarity {
         estjMap.put(MBTI.ENTP, 75); estjMap.put(MBTI.ISFJ, 80); estjMap.put(MBTI.ISTJ, 80);
         estjMap.put(MBTI.ISTP, 50); estjMap.put(MBTI.ISFP, 45); estjMap.put(MBTI.ESTJ, 97);
         estjMap.put(MBTI.ESFJ, 97); estjMap.put(MBTI.ESFP, 90); estjMap.put(MBTI.ESTP, 75);
+        estjMap.put(MBTI.ENTJ, 50);
         familiarityMap.put(MBTI.ESTJ, estjMap);
 
         EnumMap<MBTI, Integer> estpMap = new EnumMap<>(MBTI.class);
@@ -121,6 +131,7 @@ public class MbtiFamiliarity {
         estpMap.put(MBTI.ENTP, 90); estpMap.put(MBTI.ISFJ, 75); estpMap.put(MBTI.ISTJ, 75);
         estpMap.put(MBTI.ISTP, 100); estpMap.put(MBTI.ISFP, 95); estpMap.put(MBTI.ESTJ, 75);
         estpMap.put(MBTI.ESFJ, 80); estpMap.put(MBTI.ESFP, 90); estpMap.put(MBTI.ESTP, 97);
+        estpMap.put(MBTI.ENTJ, 35);
         familiarityMap.put(MBTI.ESTP, estpMap);
 
         EnumMap<MBTI, Integer> esfpMap = new EnumMap<>(MBTI.class);
@@ -129,6 +140,7 @@ public class MbtiFamiliarity {
         esfpMap.put(MBTI.ENTP, 85); esfpMap.put(MBTI.ISFJ, 100); esfpMap.put(MBTI.ISTJ, 90);
         esfpMap.put(MBTI.ISTP, 85); esfpMap.put(MBTI.ISFP, 97); esfpMap.put(MBTI.ESTJ, 90);
         esfpMap.put(MBTI.ESFJ, 90); esfpMap.put(MBTI.ESFP, 97); esfpMap.put(MBTI.ESTP, 90);
+        esfpMap.put(MBTI.ENTJ, 30);
         familiarityMap.put(MBTI.ESFP, esfpMap);
 
         EnumMap<MBTI, Integer> entpMap = new EnumMap<>(MBTI.class);
@@ -137,11 +149,17 @@ public class MbtiFamiliarity {
         entpMap.put(MBTI.ENTP, 85); entpMap.put(MBTI.ISFJ, 97); entpMap.put(MBTI.ISTJ, 60);
         entpMap.put(MBTI.ISTP, 60); entpMap.put(MBTI.ISFP, 80); entpMap.put(MBTI.ESTJ, 55);
         entpMap.put(MBTI.ESFJ, 55); entpMap.put(MBTI.ESFP, 75); entpMap.put(MBTI.ESTP, 75);
+        entpMap.put(MBTI.ENTJ, 97);
 
         familiarityMap.put(MBTI.ENTP, entpMap);
     }
 
     public static int getFamiliarityScore(MBTI mbti1, MBTI mbti2) {
+        if (familiarityMap.get(mbti1).get(mbti2) == null) {
+            System.out.println(mbti1 + " " + mbti2);
+            return 50;
+        }
+
         return familiarityMap.get(mbti1).get(mbti2);
     }
 }
