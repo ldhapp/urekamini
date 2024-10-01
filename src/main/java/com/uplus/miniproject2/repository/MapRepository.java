@@ -12,8 +12,13 @@ import java.util.Optional;
 @Repository
 public interface MapRepository extends JpaRepository<Profile, Long> {
     // 특정 사용자 ID로 프로필 조회
-    Optional<List<Profile>> findByUserId(Long userId);
+    @Query("SELECT p FROM Profile p JOIN FETCH p.region WHERE p.user.id = :userId")
+    Profile findByUserId(Long userId);
 
-    @Query("SELECT p FROM Profile p JOIN FETCH p.user JOIN FETCH p.region")
+    @Query("SELECT p FROM Profile p "
+            + "JOIN FETCH p.user "
+            + "JOIN FETCH p.region "
+            + "JOIN ProfileRequest pr ON pr.profile = p "
+            + "WHERE pr.requestStatusCodeKey NOT IN ('A02-020', 'A02-030')")
     List<Profile> findAll();
 }

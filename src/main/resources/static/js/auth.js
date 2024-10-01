@@ -113,8 +113,5 @@ async function sendRequestWithToken(url, method, headers, body) {
     }
 }
 
-
-
-
 // 전역에서 사용 가능하도록 함수 내보내기
 window.sendRequestWithToken = sendRequestWithToken;

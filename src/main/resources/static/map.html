@@ -17,13 +17,19 @@
 </header>
 
 <div class="container" style="margin-left: 400px; padding-top: 20px;">
-    <h1 class="text-center">친구들이 사는 지역</h1>
+    <h1 class="text-center">동료들이 사는 지역</h1>
     <p class="text-center">다음은 사용자들의 위치를 표시한 지도입니다.</p>
 
     <!-- 지도과 사용자 목록을 감싸는 컨테이너 -->
     <div class="map-and-list-container">
         <div class="map-container" id="map"></div>
         <div class="user-list" id="user-list">
+            <div class="text-center mb-3">
+                <button id="calculateDistanceBtn" class="btn btn-outline-primary" style="border-radius: 20px; font-size: 1.1rem; padding: 10px 20px; transition: background-color 0.3s;">
+                    거리 계산하기
+                </button>
+            </div>
+
             <!-- 사용자 목록이 동적으로 삽입됩니다 -->
         </div>
     </div>
@@ -70,7 +76,7 @@
                 <h5 class="modal-title text-white" id="profileModalLabel">프로필 등록/수정</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="profile-modal-body">
                 <form id="profileForm">
                     <div class="row">
                         <!-- 프로필 이미지 -->
@@ -125,8 +131,9 @@
                                     <option value="천안">천안</option>
                                     <option value="거제">거제</option>
                                     <option value="부산">부산</option>
-                                    <option value="창원">창원</option>
                                     <option value="의왕">의왕</option>
+                                    <option value="창원">창원</option>
+                                    <option value="청주">청주</option>
                                 </select>
                             </div>
                             <div class="mb-3">
@@ -176,6 +183,34 @@
     </div>
 </div>
 
+<!-- 거리계산 모달 창  -->
+<div class="modal fade" id="distanceModal" tabindex="-1" aria-labelledby="distanceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="distanceModalLabel">거리 계산</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6>사용자 선택 (최대 2명 선택 가능):</h6>
+                <div id="userSelectionContainer" style="max-height: 300px; overflow-y: auto;">
+                    <!-- 사용자 목록이 카드 형태로 삽입됩니다 -->
+                </div>
+                <div id="distanceResult" style="margin-top: 20px;">
+                    <!-- 거리 계산 결과가 여기에 표시됩니다 -->
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="calculateDistance">거리 계산하기</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
 <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=b725e40e2b697b42e1aac0b02c8a06ee&libraries=clusterer"></script>
 <script>
     var mapContainer = document.getElementById('map'),
@@ -185,120 +220,118 @@
         };
 
     var map = new kakao.maps.Map(mapContainer, mapOption);
-
     var markers = {};
     var infowindows = {};
     var userListContainer = document.getElementById('user-list');
 
-    const token = localStorage.getItem("accessToken");
-        if (!token) {
-            console.error("토큰이 없습니다.");
-        }
-
-    fetch('/api/map/profiles', {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': 'Bearer ' + token,
-                        'Content-Type': 'application/json'
-                    }
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log("데이터를 가져왔습니다.", data);
-
-            data.response.forEach(profile => {
-                if (profile.regionName && profile.latitude && profile.longitude && profile.userId && profile.userName) {
-                    var position = new kakao.maps.LatLng(profile.latitude, profile.longitude);
-
-                    var marker = new kakao.maps.Marker({
-                        map: map,
-                        position: position,
-                        title: profile.userName
-                    });
-
-                    // 정보 창 뜨고, 이름 클릭시 모달 창 출력 (함수실행)
-                    var infowindow = new kakao.maps.InfoWindow({
-                        content: `<div style="padding: 3px 5px; background-color: #fff; border-radius: 6px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); font-size: 12px; color: #333; width: 150px; height: auto; display: flex; flex-direction: column; align-items: center; text-align: center; font-family: 'Arial', sans-serif;">
-                            <a href="#" onclick="openUserModal(${profile.userId}); return false;" style="text-decoration: none; color: #333;">
-                                <strong style="font-size: 14px; font-weight: bold;">${profile.userName}</strong>
-                            </a>
-                            <span style="margin-top: 2px; font-size: 12px; color: #666;">${profile.regionName || '주소 정보 없음'}</span>
-                        </div>`
-                    });
-
-                    // 마커와 InfoWindow를 객체에 저장
-                    markers[profile.userId] = marker;
-                    infowindows[profile.userId] = infowindow;
-
-                    kakao.maps.event.addListener(marker, 'click', function() {
-                        if (infowindow.getMap()) {
-                            infowindow.close();
-                        } else {
-                            infowindow.open(map, marker);
-                        }
-                    });
-
-                    // 사용자 목록 추가
-                    var userItem = document.createElement('div');
-                    userItem.className = 'user-item';
-                    userItem.innerHTML = `<a href="#" data-user-id="${profile.userId}" style="text-decoration: none; color: #333;">${profile.userName}</a>`;
-                    userListContainer.appendChild(userItem);
-                } else {
-                    console.error('Profile 데이터가 부족합니다:', profile);
-                }
-            });
-
-            // 사용자 목록 클릭 이벤트 추가
-            userListContainer.addEventListener('click', function(event) {
-                if (event.target.tagName === 'A') {
-                    var userId = event.target.getAttribute('data-user-id');
-                    var marker = markers[userId];
-                    var infowindow = infowindows[userId];
-
-                    if (marker && infowindow) {
-                        if (infowindow.getMap()) {
-                            infowindow.close();
-                        } else {
-                            infowindow.open(map, marker);
-                        }
-                        // 지도 중심을 부드럽게 이동
-                        map.panTo(marker.getPosition());
-                    }
-                }
-            });
-        })
-        .catch(error => {
-            console.error('지도를 업데이트하는 중 오류 발생:', error);
-        });
-    function openUserModal(userId) {
-        fetch(`/api/users/${userId}`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': 'Bearer ' + token,
-                        'Content-Type': 'application/json'
-                    }
+    document.addEventListener('DOMContentLoaded', async function () {
+        // 프로필 데이터 가져오기
+        await window.sendRequestWithToken('/api/map/profiles', 'GET', null, null)
+            .then(response => response.json())
+            .then(data => {
+                console.log("데이터를 가져왔습니다.", data);
+                populateMapAndUserList(data.response);
             })
+            .catch(error => {
+                console.error('지도를 업데이트하는 중 오류 발생:', error);
+            });
+    });
+
+
+    function populateMapAndUserList(profiles) {
+        profiles.forEach(profile => {
+            if (profile.regionName && profile.latitude && profile.longitude && profile.userId && profile.userName) {
+                var position = new kakao.maps.LatLng(profile.latitude, profile.longitude);
+
+                // 마커 생성
+                var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: position,
+                    title: profile.userName
+                });
+
+                // 인포윈도우 생성
+                var infowindow = new kakao.maps.InfoWindow({
+                    content: `<div style="padding: 3px 5px; background-color: #fff; border-radius: 6px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); font-size: 12px; color: #333; width: 150px; height: auto; display: flex; flex-direction: column; align-items: center; text-align: center; font-family: 'Arial', sans-serif;">
+                                <a href="#" onclick="openUserModal(${profile.userId}); return false;" style="text-decoration: none; color: #333;">
+                                    <strong style="font-size: 14px; font-weight: bold;">${profile.userName}</strong>
+                                </a>
+                                <span style="margin-top: 2px; font-size: 12px; color: #666;">${profile.regionName || '주소 정보 없음'}</span>
+                            </div>`
+                });
+
+                markers[profile.userId] = marker;
+                infowindows[profile.userId] = infowindow;
+
+                // 마커 클릭 이벤트
+                kakao.maps.event.addListener(marker, 'click', function() {
+                    infowindow.getMap() ? infowindow.close() : infowindow.open(map, marker);
+                });
+
+                // 사용자 리스트에 추가
+                var userItem = document.createElement('div');
+                userItem.className = 'user-item';
+                userItem.innerHTML = `<a href="#" data-user-id="${profile.userId}" style="text-decoration: none; color: #333;">${profile.userName}</a>`;
+                userListContainer.appendChild(userItem);
+            } else {
+                console.error('Profile 데이터가 부족합니다:', profile);
+            }
+        });
+
+        // 사용자 리스트 클릭 이벤트
+        userListContainer.addEventListener('click', function(event) {
+            if (event.target.tagName === 'A') {
+                var userId = event.target.getAttribute('data-user-id');
+                var marker = markers[userId];
+                var infowindow = infowindows[userId];
+
+                if (marker && infowindow) {
+                    infowindow.getMap() ? infowindow.close() : infowindow.open(map, marker);
+                    map.panTo(marker.getPosition());
+                }
+            }
+        });
+
+        populateUserSelection(profiles);
+    }
+
+    // 사용자 선택 목록 생성
+    function populateUserSelection(users) {
+        const userSelectionContainer = document.getElementById('userSelectionContainer');
+        userSelectionContainer.innerHTML = '';
+
+        users.forEach(user => {
+            const userItem = document.createElement('div');
+            userItem.className = 'form-check';
+            userItem.innerHTML = `
+                <input class="form-check-input" type="checkbox" value="${user.userId}" id="userCheck${user.userId}" onclick="handleUserCheck(${user.userId})">
+                <label class="form-check-label" for="userCheck${user.userId}">${user.userName}</label>
+            `;
+            userSelectionContainer.appendChild(userItem);
+        });
+    }
+
+    // 사용자 모달 열기
+    function openUserModal(userId) {
+        fetch(`/api/users/${userId}`)
             .then(response => response.json())
             .then(data => {
                 const user = data.response;
                 document.getElementById('modalProfileImage').src = `data:image/png;base64,${user.profileImage}`;
                 document.getElementById('modalUserName').innerText = user.name;
-                const gender = user.gender === 'male' ? '남성' : '여성';
-                document.getElementById('modalUserGender').innerText = gender;
+                document.getElementById('modalUserGender').innerText = user.gender === 'male' ? '남성' : '여성';
                 document.getElementById('modalUserMbti').innerText = user.mbti;
                 document.getElementById('modalUserRegion').innerText = user.region;
                 document.getElementById('modalUserMajor').innerText = user.major;
 
                 const hobbiesList = document.getElementById('modalUserHobbies');
-                hobbiesList.innerHTML = '';  // 기존 취미 초기화
-                user.hobbies.forEach(hobby => {
-                    hobbiesList.innerHTML += `<span class="badge bg-pink text-white me-2" style="font-size: 1.025rem; padding: 10px 15px;">${hobby.name}</span>`;
-                });
+                hobbiesList.innerHTML = user.hobbies.map(hobby =>
+                    `<span class="badge bg-pink text-white me-2" style="font-size: 1.025rem; padding: 10px 15px;">${hobby.name}</span>`
+                ).join('');
 
                 document.getElementById('modalUserExperience').innerText = user.niceExperience;
                 document.getElementById('modalUserPlan').innerText = user.plan;
 
-                // Update the link to pass the userId
                 const familiarityBtn = document.getElementById('familiarityBtn');
                 familiarityBtn.href = `/familiarity.html?userId=${userId}`;
 
@@ -307,6 +340,118 @@
             });
     }
 
+    document.getElementById('calculateDistanceBtn').addEventListener('click', function() {
+        new bootstrap.Modal(document.getElementById('distanceModal')).show();
+    });
+
+    // 'calculateDistance' 버튼에 클릭 이벤트 리스너 추가
+    document.getElementById('calculateDistance').addEventListener('click', function() {
+        // 체크된 사용자 체크박스에서 값을 가져와 배열로 변환
+        const selectedUsers = Array.from(document.querySelectorAll('#userSelectionContainer .form-check-input:checked'))
+            .map(checkbox => checkbox.value);
+
+
+        // 선택된 사용자 ID 콘솔에 출력
+        console.log('선택된 사용자 ID:', selectedUsers);
+
+        // 선택된 사용자의 수가 2가 아닌 경우 경고 메시지 출력
+        if (selectedUsers.length !== 2) {
+            alert('정확히 두 명의 사용자를 선택해야 합니다.');
+            return; // 함수 종료
+        }
+
+        const [userId1, userId2] = selectedUsers;
+
+        // 로컬 저장소에서 액세스 토큰 가져오기
+        const token = localStorage.getItem("accessToken");
+        if (!token) {
+            console.error("토큰이 없습니다."); // 토큰이 없을 경우 콘솔에 오류 출력
+            return; // 토큰이 없으면 함수 종료
+        }
+
+        // 사용자 1과 사용자 2의 좌표를 각각 가져와서 거리 계산
+        Promise.all([
+            fetchCoordinates(userId1, token),
+            fetchCoordinates(userId2, token)
+        ])
+            .then(([coordinates1, coordinates2]) => {
+                const [lat1, lon1] = coordinates1.response; // 여기서 data 필드 사용
+                const [lat2, lon2] = coordinates2.response; // 여기서 data 필드 사용
+                console.log('지역 1의 좌표:', coordinates1.data);
+                console.log('지역 2의 좌표:', coordinates2.data);
+
+                // 두 지점 사이의 거리 계산 (단위: km)
+                const distance = calculateDistance(lat1, lon1, lat2, lon2);
+
+                // 거리 출력 시 소수점 3자리까지 포맷팅
+                const formattedDistance = distance.toFixed(3) + ' KM';
+                const duration = estimateDuration(distance); // 예상 소요 시간 계산
+
+                document.getElementById('distanceResult').innerHTML = `
+                <strong>결과</strong><br>
+                <span>거리: <span style="color: #007bff;">${formattedDistance}</span></span><br>
+                <span>소요 시간: <span style="color: #007bff;">${duration}</span></span>
+                    `;
+
+            })
+            .catch(error => {
+                console.error('거리를 계산하는 도중 오류 발생:', error);
+                alert('거리를 계산하는 중 오류가 발생했습니다. 다시 시도해 주세요.');
+            });
+    });
+
+    function fetchCoordinates(userId, token) {
+        console.log('좌표 요청 중: 사용자 ID =', userId);
+        return fetch(`/api/map/coordinates/${userId}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                console.log('응답 상태:', response.status); // 응답 상태 코드 로그
+                return response.text() // 응답을 JSON으로 변환하기 전에 텍스트로 확인
+                    .then(text => {
+                        console.log('받은 응답:', text); // 응답 텍스트 로그
+                        return JSON.parse(text); // 텍스트를 JSON으로 파싱
+                    });
+            });
+    }
+
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+        const R = 6371; // 지구 반지름 (단위: km)
+        const dLat = toRadians(lat2 - lat1);
+        const dLon = toRadians(lon2 - lon1);
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
+    }
+
+    function toRadians(degrees) {
+        return degrees * Math.PI / 180;
+    }
+
+    // 예상 소요 시간 계산 함수 예시 (속도: 60 km/h)
+    function estimateDuration(distance) {
+        const speed = 24; // km/h
+        const timeInHours = distance / speed;
+        const minutes = Math.round(timeInHours * 60);
+        return `${minutes} 분`;
+    }
+    // 사용자 선택 체크박스 상태 관리
+    function handleUserCheck(userId) {
+        const checkboxes = document.querySelectorAll('#userSelectionContainer .form-check-input');
+        console.log("체크박스 확인",checkboxes)
+        const checkedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+
+        if (checkedCount > 2) {
+            alert('최대 2명만 선택할 수 있습니다.');
+            document.getElementById(`userCheck${userId}`).checked = false; // 현재 체크박스 해제
+        }
+    }
 
     // 세부 취미 리스트
     const hobbyDetails = {
@@ -475,6 +620,12 @@
         }
     });
 </script>
+
+
+
+
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 <script type="module" src="/js/auth.js"></script>
