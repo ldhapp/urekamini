@@ -19,6 +19,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -29,15 +30,41 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Slf4j
 public class FamiliarityService {
 
     private final UserRepository userRepository;
     private final ProfileRepository profileRepository;
     private final FamiliarityRankService familiarityRankService;
+    private final FamiliarityEventService familiarityEventService;
 
     public Page<FamiliarityRankingDto> calculateFamiliarityRanking(Long loginUserId, Pageable pageable) {
+
         User loginUser = userRepository.findByIdWithProfileAndHobbies(loginUserId)
                 .orElseThrow(() -> new IllegalArgumentException());
+
+        List<Long> unprocessedProfileIds = familiarityEventService.getUnprocessedProfileIds(loginUserId);
+
+        Long loginUserProfileId = loginUser.getProfile().getId();
+        if (unprocessedProfileIds.contains(loginUserProfileId) && !familiarityEventService.isEventProcessed(loginUserId, loginUserProfileId)) {
+            familiarityRankService.invalidateCachesForLoginUser(loginUserId);
+            recalculateForAllUsers(loginUserId);
+
+            familiarityEventService.updateClearEvent(loginUserId, loginUserProfileId);
+        }
+
+        if (!unprocessedProfileIds.isEmpty()) {
+            for (Long profileId : unprocessedProfileIds) {
+                Profile targetProfile = profileRepository.findById(profileId)
+                        .orElseThrow(() -> new IllegalArgumentException());
+
+                familiarityRankService.recalculateFamiliarityTargetUser(loginUser, targetProfile);
+                familiarityRankService.invalidateCachesTargetUser(loginUserId, targetProfile.getId());
+                familiarityEventService.updateClearEvent(loginUserId, targetProfile.getId());
+            }
+        }
+
+
 
         if (loginUser.getProfile() == null) {
             throw new IllegalStateException("프로필 등록이 필요합니다.");
@@ -72,7 +99,8 @@ public class FamiliarityService {
             throw new IllegalStateException("프로필 등록이 필요합니다.");
         }
 
-        double nameFamiliarity = FamiliarityCalculator.calculateNameFamiliarity(loginUser.getName(), clickedUser.getName());
+        double nameFamiliarity = FamiliarityCalculator.calculateNameFamiliarity(loginUser.getName(),
+                clickedUser.getName());
         double mbtiFamiliarity = FamiliarityCalculator.getMbtiFamiliarity(loginUser.getProfile().getMbti(),
                 clickedUser.getProfile().getMbti());
         double hobbyFamiliarity = FamiliarityCalculator.calculateHobbyFamiliarity(loginUser.getProfile().getHobbies(),
@@ -80,5 +108,17 @@ public class FamiliarityService {
         double finalScore = nameFamiliarity * 0.15 + mbtiFamiliarity * 0.6 + hobbyFamiliarity * 0.25;
 
         return new FamiliarityResultDto(nameFamiliarity, mbtiFamiliarity, hobbyFamiliarity, finalScore);
+    }
+
+    private void recalculateForAllUsers(Long loginUserId) {
+        List<Profile> allProfiles = profileRepository.findAllAcceptedProfile();
+        User loginUser = userRepository.findByIdWithProfileAndHobbies(loginUserId)
+                .orElseThrow(() -> new IllegalArgumentException());
+
+        for (Profile profile : allProfiles) {
+            if (!profile.getUser().getId().equals(loginUserId)) {
+                familiarityRankService.recalculateFamiliarityTargetUser(loginUser, profile);
+            }
+        }
     }
 }

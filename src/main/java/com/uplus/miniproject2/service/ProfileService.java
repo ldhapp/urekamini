@@ -7,9 +7,11 @@ import com.uplus.miniproject2.entity.hobby.Hobby;
 import com.uplus.miniproject2.dto.ProfileRequestDto;
 import com.uplus.miniproject2.entity.proflie.*;
 import com.uplus.miniproject2.entity.user.User;
+import com.uplus.miniproject2.event.ProfileChangeEvent;
 import com.uplus.miniproject2.repository.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +29,7 @@ public class ProfileService {
     private final UserRepository userRepository;
     private final HobbyRepository hobbyRepository;
     private final RegionRepository regionRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
     public ProfilePageProfileRequestDto createProfileRequest(Long userId,
                                                              ProfilePageProfileResponseDto profileResponseDto) {
@@ -142,8 +145,13 @@ public class ProfileService {
 
         // 상태 변경
         request.changeRequestStatus(status);
-
         // 변경 사항 저장 (보통 Service에서 Repository를 사용하여 저장)
         profileRequestRepository.save(request);
+
+        if (status == RequestStatus.APPROVED) {
+            Profile profile = request.getProfile();
+            eventPublisher.publishEvent(new ProfileChangeEvent(profile.getId(), request.getUser().getId(),
+                    request.getRequestType().name()));
+        }
     }
 }
